@@ -14,14 +14,19 @@ public class MyFirstMicroserviceApplication {
 
 	@Autowired
 	private ActorRepository actorRepository;
-
+	@Autowired
+	private FilmRepository filmRepository;
 	public static void main(String[] args) {
 		SpringApplication.run(MyFirstMicroserviceApplication.class, args);
+
 	}
 
-	public MyFirstMicroserviceApplication(ActorRepository actorRepository){
+	public MyFirstMicroserviceApplication(ActorRepository actorRepository, FilmRepository filmRepository){
 		this.actorRepository = actorRepository;
+		this.filmRepository = filmRepository;
 	}
+
+
 
 
 	@GetMapping("/All_Actors")
