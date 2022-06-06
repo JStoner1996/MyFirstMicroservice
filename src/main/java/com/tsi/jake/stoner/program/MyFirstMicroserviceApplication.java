@@ -1,4 +1,3 @@
-// My first Microservice by Jake Stoner
 
 package com.tsi.jake.stoner.program;
 
@@ -7,7 +6,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.*;
 
-@CrossOrigin (origins = "*") // needed for recieving request via api
+@CrossOrigin (origins = "*") // needed for receiving request via api
 @SpringBootApplication
 @RestController // Handles GET, POST, DELETE, PUT requests
 @RequestMapping("/home")//base url
