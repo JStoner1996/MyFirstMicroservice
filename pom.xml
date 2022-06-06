@@ -16,7 +16,10 @@
 
 	<properties>
 		<java.version>18</java.version>
+		<sonar.organization>jstoner1996</sonar.organization>
+		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
 	</properties>
+
 
 	<dependencies>
 		<dependency>
