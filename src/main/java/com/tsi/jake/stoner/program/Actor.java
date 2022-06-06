@@ -12,14 +12,14 @@ public class Actor {
     //Attributes
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int actor_id;
-    String first_name;
-    String last_name;
+    int actorID;
+    String firstName;
+    String lastName;
 
     //Constructors
-    public Actor(String first_name, String last_name){
-        this.first_name=first_name;
-        this.last_name=last_name;
+    public Actor(String firstName, String lastName){
+        this.firstName = firstName;
+        this.lastName = lastName;
     }
 
     public Actor(){}
@@ -27,27 +27,27 @@ public class Actor {
     //Methods
 
 
-    public int getActor_id() {
-        return actor_id;
+    public int getActorID() {
+        return actorID;
     }
 
-    public void setActor_id(int actor_id) {
-        this.actor_id = actor_id;
+    public void setActorID(int actorID) {
+        this.actorID = actorID;
     }
 
-    public String getFirst_name() {
-        return first_name;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setFirst_name(String first_name) {
-        this.first_name = first_name;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public String getLast_name() {
-        return last_name;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setLast_name(String last_name) {
-        this.last_name = last_name;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 }
