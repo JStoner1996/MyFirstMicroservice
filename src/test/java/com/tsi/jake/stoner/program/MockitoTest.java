@@ -33,36 +33,12 @@ public class MockitoTest {
         myFirstMicroserviceApplication = new MyFirstMicroserviceApplication(actorRepository, filmRepository, filmCategoryRepository, categoryRepository, languageRepository);
     }
 
+    // ---------------------Actors--------------------- //
     @Test
     public void getAllActors(){
         myFirstMicroserviceApplication.getAllActors();
         verify(actorRepository).findAll();
     }
-
-    @Test
-    public void getAllFilms(){
-        myFirstMicroserviceApplication.getAllFilms();
-        verify(filmRepository).findAll();
-    }
-
-    @Test
-    public void getAllFilmCategories(){
-        myFirstMicroserviceApplication.getAllFilmCategories();
-        verify(filmCategoryRepository).findAll();
-    }
-
-    @Test
-    public void getAllCategories(){
-        myFirstMicroserviceApplication.getAllCategories();
-        verify(categoryRepository).findAll();
-    }
-
-    @Test
-    public void getAllLanguages(){
-        myFirstMicroserviceApplication.getAllLanguages();
-        verify(languageRepository).findAll();
-    }
-
     @Test
     public void testAddActor(){
         Actor newActor = new Actor("Tom", "Shanks");
@@ -84,5 +60,34 @@ public class MockitoTest {
 
     }
 
+    // ---------------------Films--------------------- //
+    @Test
+    public void getAllFilms(){
+        myFirstMicroserviceApplication.getAllFilms();
+        verify(filmRepository).findAll();
+    }
 
+    @Test
+    public void getAllFilmCategories(){
+        myFirstMicroserviceApplication.getAllFilmCategories();
+        verify(filmCategoryRepository).findAll();
+    }
+    @Test
+    public void getAllCategories(){
+        myFirstMicroserviceApplication.getAllCategories();
+        verify(categoryRepository).findAll();
+    }
+
+    @Test
+    public void getFilmById(){
+        myFirstMicroserviceApplication.getFilmById(55);
+        verify(filmRepository).findById(55);
+    }
+
+    // ---------------------Languages--------------------- //
+    @Test
+    public void getAllLanguages(){
+        myFirstMicroserviceApplication.getAllLanguages();
+        verify(languageRepository).findAll();
+    }
 }

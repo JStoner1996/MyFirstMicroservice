@@ -6,6 +6,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @CrossOrigin (origins = "*") // needed for receiving request via api
 @SpringBootApplication
 @RestController // Handles GET, POST, DELETE, PUT requests
@@ -80,6 +82,12 @@ public class MyFirstMicroserviceApplication {
 	public @ResponseBody
 	Iterable<Category>getAllCategories(){
 		return categoryRepository.findAll();
+	}
+
+	@GetMapping("/Film_By_ID")
+	public @ResponseBody Optional<Film> getFilmById (@RequestParam int filmID){
+
+		return filmRepository.findById(filmID);
 	}
 
 	// ---------------------Languages---------------------
