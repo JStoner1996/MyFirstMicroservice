@@ -43,7 +43,7 @@ public class MockitoTest {
     public void testAddActor(){
         Actor newActor = new Actor("Tom", "Shanks");
         String expected = "Saved";
-        String Actual = myFirstMicroserviceApplication.addActor(newActor.getFirstName(), newActor.getLastName());
+        String Actual = myFirstMicroserviceApplication.addActor(newActor.getFirst_name(), newActor.getLast_name());
         ArgumentCaptor<Actor> actorArgumentCaptor = ArgumentCaptor.forClass(Actor.class);
         verify(actorRepository).save(actorArgumentCaptor.capture());
         actorArgumentCaptor.getValue();
@@ -55,10 +55,19 @@ public class MockitoTest {
         // Create new actor
         Actor newActor = new Actor("Tom", "Shanks");
         actorRepository.save(newActor);
-        actorRepository.deleteById(actorIdToDelete);
+       myFirstMicroserviceApplication.removeActor(actorIdToDelete);
         Assertions.assertEquals(false, actorRepository.existsById(actorIdToDelete), "Actor " + actorIdToDelete + " exists");
 
     }
+
+//    @Test void testUpdateActor(){
+//        Actor actor = new Actor("Fish", "Shanks");
+//        actorRepository.save(actor);
+//        String expected = "Actor " + 1 + " updated.";
+//        String Actual = myFirstMicroserviceApplication.updateActor(0, "Steven", "Smith");
+//        Assertions.assertEquals(expected, Actual, "Actor first name not updated");
+//
+//    }
 
     // ---------------------Films--------------------- //
     @Test

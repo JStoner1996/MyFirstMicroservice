@@ -6,6 +6,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.*;
 
+import java.awt.print.Pageable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @CrossOrigin (origins = "*") // needed for receiving request via api
@@ -54,15 +57,29 @@ public class MyFirstMicroserviceApplication {
 		return actorRepository.findAll();
 	}
 	@PostMapping("/Add_Actor")
-	public @ResponseBody String addActor (@RequestParam String firstName, @RequestParam String lastName){
-		Actor addActor = new Actor(firstName, lastName);
+	public @ResponseBody String addActor (@RequestParam String first_name, @RequestParam String last_name){
+		Actor addActor = new Actor(first_name, last_name);
 		actorRepository.save(addActor);
 		return saved;
 	}
 	@DeleteMapping("/Delete_Actor")
-	public @ResponseBody String removeActor (@RequestParam int actorID){
-		actorRepository.deleteById(actorID);
+	public @ResponseBody String removeActor (@RequestParam int actor_id){
+		actorRepository.deleteById(actor_id);
 		return saved;
+	}
+
+	@PutMapping ("/Update_Actor")
+	public @ResponseBody String updateActor(@RequestParam int actor_id, String first_name, String last_name){
+
+		if(actorRepository.existsById(actor_id)) {
+			Actor actor = actorRepository.findById(actor_id).get();
+			actor.setFirst_name(first_name);
+			actor.setLast_name(last_name);
+			actorRepository.save(actor);
+			return "Actor " + actor_id + " updated.";
+		} else {
+			return "Actor " + actor_id + " not found.";
+		}
 	}
 
 	// ---------------------Films---------------------
@@ -84,11 +101,14 @@ public class MyFirstMicroserviceApplication {
 		return categoryRepository.findAll();
 	}
 
-	@GetMapping("/Film_By_ID")
-	public @ResponseBody Optional<Film> getFilmById (@RequestParam int filmID){
 
-		return filmRepository.findById(filmID);
+	@GetMapping("/Film_By_ID")
+	public @ResponseBody Optional<Film> getFilmById (@RequestParam int film_id){
+		return filmRepository.findById(film_id);
 	}
+
+
+
 
 	// ---------------------Languages---------------------
 	@GetMapping("/All_Languages")
