@@ -53,7 +53,7 @@ public class MockitoTest {
     @Test void testDeleteActor(){
         Actor newActor = new Actor("Tom", "Shanks");
         String expected = "Saved";
-        String Actual = myFirstMicroserviceApplication.removeActor(2);
+        String Actual = myFirstMicroserviceApplication.removeActor(1);
         verify(actorRepository).deleteById(1);
         Assertions.assertEquals(expected, Actual, "Actor 1 still in Database");
 
