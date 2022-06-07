@@ -29,6 +29,9 @@ public class MyFirstMicroserviceApplication {
 		this.actorRepository = actorRepository;
 		this.filmRepository = filmRepository;
 
+
+
+
 	}
 
 
@@ -39,18 +42,24 @@ public class MyFirstMicroserviceApplication {
 	return actorRepository.findAll();
 	}
 
-	@PostMapping("/addActor")
+	@PostMapping("/Add_Actor")
 	public @ResponseBody String addActor (@RequestParam String firstName, String lastName){
-		Actor addActor = new Actor("Leonard", "DeSagi");
+		Actor addActor = new Actor(firstName, lastName);
 		actorRepository.save(addActor);
 		return saved;
 	}
 
+	@DeleteMapping("/Delete_Actor")
+	public @ResponseBody String removeActor (@RequestParam int actorID){
+		actorRepository.deleteById(actorID);
+		return saved;
+	}
 	@GetMapping("/All_Films")
 	public @ResponseBody
 	Iterable<Film>getAllFilms(){
 		return filmRepository.findAll();
 	}
+
 
 
 

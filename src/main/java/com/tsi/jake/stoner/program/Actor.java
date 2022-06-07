@@ -20,6 +20,7 @@ public class Actor {
     public Actor(String firstName, String lastName){
         this.firstName = firstName;
         this.lastName = lastName;
+
     }
 
     public Actor(){}
@@ -31,23 +32,14 @@ public class Actor {
         return actorID;
     }
 
-    public void setActorID(int actorID) {
-        this.actorID = actorID;
-    }
-
     public String getFirstName() {
         return firstName;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
+
 
     public String getLastName() {
         return lastName;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
 }

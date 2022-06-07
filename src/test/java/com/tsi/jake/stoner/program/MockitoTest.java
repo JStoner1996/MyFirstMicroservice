@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
+import org.mockito.internal.matchers.Null;
 import org.mockito.junit.jupiter.MockitoExtension;
 import static org.mockito.Mockito.verify;
 
@@ -20,7 +21,7 @@ public class MockitoTest {
 
 
 
-    // Set's up temp db
+    // Set up temp db
     @BeforeEach
     void setUp(){
         myFirstMicroserviceApplication = new MyFirstMicroserviceApplication(actorRepository, filmRepository);
@@ -47,5 +48,14 @@ public class MockitoTest {
         verify(actorRepository).save(actorArgumentCaptor.capture());
         actorArgumentCaptor.getValue();
         Assertions.assertEquals(expected, Actual, "Actor not saved in Database.");
+    }
+
+    @Test void testDeleteActor(){
+        Actor newActor = new Actor("Tom", "Shanks");
+        String expected = "Saved";
+        String Actual = myFirstMicroserviceApplication.removeActor(2);
+        verify(actorRepository).deleteById(1);
+        Assertions.assertEquals(expected, Actual, "Actor 1 still in Database");
+
     }
 }
