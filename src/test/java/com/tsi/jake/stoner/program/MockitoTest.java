@@ -1,13 +1,11 @@
 package com.tsi.jake.stoner.program;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
-import org.mockito.internal.matchers.Null;
 import org.mockito.junit.jupiter.MockitoExtension;
+
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
@@ -18,13 +16,19 @@ public class MockitoTest {
     private ActorRepository actorRepository;
     @Mock
     private FilmRepository filmRepository;
+    @Mock
+    private FilmCategoryRepository filmCategoryRepository;
+    @Mock
+    private CategoryRepository categoryRepository;
+    @Mock
+    private LanguageRepository languageRepository;
 
 
 
     // Set up temp db
     @BeforeEach
     void setUp(){
-        myFirstMicroserviceApplication = new MyFirstMicroserviceApplication(actorRepository, filmRepository);
+        myFirstMicroserviceApplication = new MyFirstMicroserviceApplication(actorRepository, filmRepository, filmCategoryRepository, categoryRepository, languageRepository);
     }
 
     @Test
@@ -39,6 +43,25 @@ public class MockitoTest {
         verify(filmRepository).findAll();
     }
 
+    @Test
+    public void getAllFilmCategories(){
+        myFirstMicroserviceApplication.getAllFilmCategories();
+        verify(filmCategoryRepository).findAll();
+    }
+
+    @Test
+    public void getAllCategories(){
+        myFirstMicroserviceApplication.getAllCategories();
+        verify(categoryRepository).findAll();
+    }
+
+    @Test
+    public void getAllLanguages(){
+        myFirstMicroserviceApplication.getAllLanguages();
+        verify(languageRepository).findAll();
+    }
+
+    /* ------ Not Need for my service ------
     @Test
     public void testAddActor(){
         Actor newActor = new Actor("Tom", "Shanks");
@@ -58,4 +81,6 @@ public class MockitoTest {
         Assertions.assertEquals(expected, Actual, "Actor 1 still in Database");
 
     }
+
+     */
 }

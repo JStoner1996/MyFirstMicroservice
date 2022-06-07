@@ -18,17 +18,15 @@ public class Film{
     String title;
     String description;
 
-    java.sql.Date release_year;
     int length;
     int language_id;
 
     //Constructors
 
 
-    public Film(String title, String description, Date release_year, int length, int language_id) {
+    public Film(String title, String description, int length, int language_id) {
         this.title = title;
         this.description = description;
-        this.release_year = release_year;
         this.length = length;
         this.language_id = language_id;
     }
@@ -45,9 +43,6 @@ public class Film{
         return description;
     }
 
-    public Date getRelease_year() {
-        return release_year;
-    }
 
     public int getLength() {
         return length;
