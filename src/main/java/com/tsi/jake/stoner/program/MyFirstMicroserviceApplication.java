@@ -42,19 +42,28 @@ public class MyFirstMicroserviceApplication {
 		this.filmCategoryRepository = filmCategoryRepository;
 		this.categoryRepository = categoryRepository;
 		this.languageRepository = languageRepository;
-
-
-
 	}
 
 
-
+	// ---------------------Actors---------------------
 	@GetMapping("/All_Actors")
 	public @ResponseBody
 	Iterable<Actor>getAllActors(){
-	return actorRepository.findAll();
+		return actorRepository.findAll();
+	}
+	@PostMapping("/Add_Actor")
+	public @ResponseBody String addActor (@RequestParam String firstName, @RequestParam String lastName){
+		Actor addActor = new Actor(firstName, lastName);
+		actorRepository.save(addActor);
+		return saved;
+	}
+	@DeleteMapping("/Delete_Actor")
+	public @ResponseBody String removeActor (@RequestParam int actorID){
+		actorRepository.deleteById(actorID);
+		return saved;
 	}
 
+	// ---------------------Films---------------------
 	@GetMapping("/All_Films")
 	public @ResponseBody
 	Iterable<Film>getAllFilms(){
@@ -73,6 +82,7 @@ public class MyFirstMicroserviceApplication {
 		return categoryRepository.findAll();
 	}
 
+	// ---------------------Languages---------------------
 	@GetMapping("/All_Languages")
 	public @ResponseBody
 	Iterable<Language>getAllLanguages(){
@@ -81,23 +91,6 @@ public class MyFirstMicroserviceApplication {
 
 
 
-
-
-/* ------Not needed for my service--------------
-	@PostMapping("/Add_Actor")
-	public @ResponseBody String addActor (@RequestParam String firstName, @RequestParam String lastName){
-		Actor addActor = new Actor(firstName, lastName);
-		actorRepository.save(addActor);
-		return saved;
-	}
-*/
-
-	/* ------Not needed for my service--------------
-	@DeleteMapping("/Delete_Actor")
-	public @ResponseBody String removeActor (@RequestParam int actorID){
-		actorRepository.deleteById(actorID);
-		return saved;
-	}*/
 
 
 

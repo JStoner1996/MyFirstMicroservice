@@ -1,8 +1,10 @@
 package com.tsi.jake.stoner.program;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
@@ -61,7 +63,6 @@ public class MockitoTest {
         verify(languageRepository).findAll();
     }
 
-    /* ------ Not Need for my service ------
     @Test
     public void testAddActor(){
         Actor newActor = new Actor("Tom", "Shanks");
@@ -74,13 +75,14 @@ public class MockitoTest {
     }
 
     @Test void testDeleteActor(){
+        int actorIdToDelete = 1;
+        // Create new actor
         Actor newActor = new Actor("Tom", "Shanks");
-        String expected = "Saved";
-        String Actual = myFirstMicroserviceApplication.removeActor(1);
-        verify(actorRepository).deleteById(1);
-        Assertions.assertEquals(expected, Actual, "Actor 1 still in Database");
+        actorRepository.save(newActor);
+        actorRepository.deleteById(actorIdToDelete);
+        Assertions.assertEquals(false, actorRepository.existsById(actorIdToDelete), "Actor " + actorIdToDelete + " exists");
 
     }
 
-     */
+
 }
