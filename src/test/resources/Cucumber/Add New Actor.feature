@@ -6,5 +6,3 @@ Feature: Add a new Actor to the repository
     When The information is inputted
     Then I get a return string, confirming the success
 
-    Scenario: I don't have the required information
-      Given I don't have an Actor's First Name

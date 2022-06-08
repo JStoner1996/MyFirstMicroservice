@@ -6,9 +6,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.*;
 
-import java.awt.print.Pageable;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 @CrossOrigin (origins = "*") // needed for receiving request via api
@@ -57,35 +54,35 @@ public class MyFirstMicroserviceApplication {
 		return actorRepository.findAll();
 	}
 
+	@GetMapping("/Actor_By_ID/{actor_id}")
+	public @ResponseBody Optional<Actor> getActorById (@PathVariable int actor_id){
+		return actorRepository.findById(actor_id);
+	}
+
+
 	@PostMapping("/Add_Actor")
 	public @ResponseBody String addActor (@RequestParam String first_name, @RequestParam String last_name){
 		Actor addActor = new Actor(first_name, last_name);
 		actorRepository.save(addActor);
-		return saved;
+		return "Actor added.";
 	}
 	@DeleteMapping("/Delete_Actor")
 	public @ResponseBody String removeActor (@RequestParam int actor_id){
-		if(actorRepository.existsById(actor_id)) {
-			Actor deleteActor = actorRepository.findById(actor_id).get();
-			actorRepository.delete(deleteActor);
+
+			//Actor deleteActor = actorRepository.findById(actor_id).get();
+			//actorRepository.delete(deleteActor);
+			actorRepository.deleteById(actor_id);
 			return "Actor " + actor_id + " deleted.";
-		} else {
-			return "Actor " + actor_id + " not found.";
-		}
 	}
 
 	@PutMapping ("/Update_Actor")
 	public @ResponseBody String updateActor(@RequestParam int actor_id, String first_name, String last_name){
 
-		if(actorRepository.existsById(actor_id)) {
 			Actor actor = actorRepository.findById(actor_id).get();
 			actor.setFirst_name(first_name);
 			actor.setLast_name(last_name);
 			actorRepository.save(actor);
 			return "Actor " + actor_id + " updated.";
-		} else {
-			return "Actor " + actor_id + " not found.";
-		}
 	}
 
 	// ---------------------Films---------------------
