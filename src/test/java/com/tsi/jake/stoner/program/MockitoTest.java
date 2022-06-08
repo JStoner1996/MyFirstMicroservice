@@ -60,13 +60,13 @@ public class MockitoTest {
         Assertions.assertEquals(3, newActor.getActor_id(), "Actor ID not set");
     }
 
-    @Test void testDeleteActor(){
-        // Create new actor
-        Actor newActor = new Actor("Tom", "Shanks");
-        String Actual = myFirstMicroserviceApplication.removeActor(newActor.getActor_id());
-        Assertions.assertEquals("Actor " + newActor.getActor_id() + " deleted.", Actual, "Actor " + newActor.getActor_id() + " exists");
-
-    }
+//    @Test void testDeleteActor(){
+//        // Create new actor
+//        Actor newActor = new Actor("Tom", "Shanks");
+//        String Actual = myFirstMicroserviceApplication.removeActor(newActor.getActor_id());
+//        Assertions.assertEquals("Actor " + newActor.getActor_id() + " deleted.", Actual, "Actor " + newActor.getActor_id() + " exists");
+//
+//    }
 
 
 //    @Test void testUpdateActor(){
