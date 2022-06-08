@@ -48,24 +48,31 @@ public class MyFirstMicroserviceApplication {
 
 
 	// ---------------------Actors---------------------
+
+	// Gets all actors
 	@GetMapping("/All_Actors")
 	public @ResponseBody
 	Iterable<Actor>getAllActors(){
 		return actorRepository.findAll();
 	}
 
+	// Gets actor by id
 	@GetMapping("/Actor_By_ID/{actor_id}")
 	public @ResponseBody Optional<Actor> getActorById (@PathVariable int actor_id){
 		return actorRepository.findById(actor_id);
 	}
 
 
+	// Adds Actor
 	@PostMapping("/Add_Actor")
 	public @ResponseBody String addActor (@RequestParam String first_name, @RequestParam String last_name){
 		Actor addActor = new Actor(first_name, last_name);
 		actorRepository.save(addActor);
 		return "Actor added.";
 	}
+
+
+	// Deletes Actor
 	@DeleteMapping("/Delete_Actor")
 	public @ResponseBody String removeActor (@RequestParam int actor_id){
 

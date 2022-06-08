@@ -31,6 +31,8 @@ public class MockitoTest {
     @Mock
     Actor newActor = new Actor("Tom", "Shanks");
 
+    String Expected;
+    String Actual;
 
 
     // Set up temp db
@@ -40,6 +42,7 @@ public class MockitoTest {
     }
 
     // ---------------------Actors--------------------- //
+
     @Test
     public void getAllActors(){
         myFirstMicroserviceApplication.getAllActors();
@@ -47,25 +50,19 @@ public class MockitoTest {
     }
     @Test
     public void testAddActor(){
-        String Expected = "Actor added.";
-        String Actual = myFirstMicroserviceApplication.addActor(newActor.getFirst_name(), newActor.getLast_name());
+        Actual = myFirstMicroserviceApplication.addActor(newActor.getFirst_name(), newActor.getLast_name());
         ArgumentCaptor<Actor> actorArgumentCaptor = ArgumentCaptor.forClass(Actor.class);
         verify(actorRepository).save(actorArgumentCaptor.capture());
         actorArgumentCaptor.getValue();
+        Expected = "Actor added.";
         Assertions.assertEquals(Expected, Actual, "Actor not saved in Database.");
 
     }
-
-    @Test void setActorId(){
-        Actor testActor = new Actor("Test", "Test");
-        testActor.setActor_id(3);
-        Assertions.assertEquals(3, testActor.getActor_id(), "Actor ID not set");
-    }
-
     @Test void testDeleteActor(){
         when(newActor.getActor_id()).thenReturn(1);
-        String Actual = myFirstMicroserviceApplication.removeActor(newActor.getActor_id());
-        Assertions.assertEquals("Actor " + newActor.getActor_id() + " deleted.", Actual, "Actor " + newActor.getActor_id() + " exists");
+        Actual = myFirstMicroserviceApplication.removeActor(newActor.getActor_id());
+        Expected = "Actor " + newActor.getActor_id() + " deleted.";
+        Assertions.assertEquals(Expected, Actual, "Actor " + newActor.getActor_id() + " exists");
 
     }
 

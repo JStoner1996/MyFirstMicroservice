@@ -13,6 +13,7 @@ public class ActorTests {
 
     private Actor testActor = new Actor(10, "First", "Last");
 
+
     @Test
     public void testSetActor_id(){
         Expected = 5;
