@@ -2,7 +2,10 @@ package com.tsi.jake.stoner.program;
 
 import org.springframework.data.annotation.Id;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Table;
 
 @Entity
 @Table(name="actor")
@@ -40,6 +43,10 @@ public class Actor {
 
     public String getLast_name() {
         return last_name;
+    }
+
+    public void setActor_id(int actor_id) {
+        this.actor_id = actor_id;
     }
 
     public void setFirst_name(String first_name) {

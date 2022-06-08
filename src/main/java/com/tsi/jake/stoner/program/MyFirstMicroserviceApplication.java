@@ -56,6 +56,7 @@ public class MyFirstMicroserviceApplication {
 	Iterable<Actor>getAllActors(){
 		return actorRepository.findAll();
 	}
+
 	@PostMapping("/Add_Actor")
 	public @ResponseBody String addActor (@RequestParam String first_name, @RequestParam String last_name){
 		Actor addActor = new Actor(first_name, last_name);
@@ -64,8 +65,13 @@ public class MyFirstMicroserviceApplication {
 	}
 	@DeleteMapping("/Delete_Actor")
 	public @ResponseBody String removeActor (@RequestParam int actor_id){
-		actorRepository.deleteById(actor_id);
-		return saved;
+		if(actorRepository.existsById(actor_id)) {
+			Actor deleteActor = actorRepository.findById(actor_id).get();
+			actorRepository.delete(deleteActor);
+			return "Actor " + actor_id + " deleted.";
+		} else {
+			return "Actor " + actor_id + " not found.";
+		}
 	}
 
 	@PutMapping ("/Update_Actor")

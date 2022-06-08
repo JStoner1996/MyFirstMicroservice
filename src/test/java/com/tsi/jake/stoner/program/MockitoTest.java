@@ -6,9 +6,12 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.mockito.Mockito.verify;
+import java.util.Optional;
+
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class MockitoTest {
@@ -48,17 +51,23 @@ public class MockitoTest {
         verify(actorRepository).save(actorArgumentCaptor.capture());
         actorArgumentCaptor.getValue();
         Assertions.assertEquals(expected, Actual, "Actor not saved in Database.");
+
+    }
+
+    @Test void setActorId(){
+        Actor newActor = new Actor("Tom", "Shanks");
+        newActor.setActor_id(3);
+        Assertions.assertEquals(3, newActor.getActor_id(), "Actor ID not set");
     }
 
     @Test void testDeleteActor(){
-        int actorIdToDelete = 1;
         // Create new actor
         Actor newActor = new Actor("Tom", "Shanks");
-        actorRepository.save(newActor);
-       myFirstMicroserviceApplication.removeActor(actorIdToDelete);
-        Assertions.assertEquals(false, actorRepository.existsById(actorIdToDelete), "Actor " + actorIdToDelete + " exists");
+        String Actual = myFirstMicroserviceApplication.removeActor(newActor.getActor_id());
+        Assertions.assertEquals("Actor " + newActor.getActor_id() + " deleted.", Actual, "Actor " + newActor.getActor_id() + " exists");
 
     }
+
 
 //    @Test void testUpdateActor(){
 //        Actor actor = new Actor("Fish", "Shanks");
