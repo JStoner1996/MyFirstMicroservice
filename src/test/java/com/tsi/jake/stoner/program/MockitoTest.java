@@ -69,12 +69,11 @@ public class MockitoTest {
 
 //    @Test void testUpdateActor(){
 //        when(newActor.getActor_id()).thenReturn(1);
-//        actorRepository.save(newActor);
 //        String expected = "Actor " + newActor.getActor_id() + " updated.";
 //        String Actual = myFirstMicroserviceApplication.updateActor(newActor.getActor_id(), "Steven", "Smith");
 //        Assertions.assertEquals(expected, Actual, "Actor first name not updated");
 //
-//    }
+//   }
 
     // ---------------------Films--------------------- //
     @Test
