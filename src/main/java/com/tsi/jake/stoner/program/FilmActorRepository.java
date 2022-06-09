@@ -3,12 +3,11 @@ package com.tsi.jake.stoner.program;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-
 import java.util.List;
 
 @Repository
-public interface FilmRepository extends CrudRepository<Film, Integer>{
+public interface FilmActorRepository extends CrudRepository<FilmActor, Integer>{
 
-    List<Film> findByTitleLikeOrDescriptionLike(String title, String description);
+   List<FilmActor> findByActorId(int actorId);
 
 }

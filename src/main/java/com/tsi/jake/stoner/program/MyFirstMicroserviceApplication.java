@@ -4,14 +4,20 @@ package com.tsi.jake.stoner.program;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.data.rest.webmvc.ResourceNotFoundException;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+
+import java.util.List;
 import java.util.Optional;
 
 @CrossOrigin (origins = "*") // needed for receiving request via api
 @SpringBootApplication
 @RestController // Handles GET, POST, DELETE, PUT requests
 @RequestMapping("/home")//base url
+
 public class MyFirstMicroserviceApplication {
 
 	@Autowired
@@ -20,6 +26,8 @@ public class MyFirstMicroserviceApplication {
 	private FilmRepository filmRepository;
 	@Autowired
 	private FilmCategoryRepository filmCategoryRepository;
+	@Autowired
+	private FilmActorRepository filmActorRepository;
 	@Autowired
 	private CategoryRepository categoryRepository;
 	@Autowired
@@ -36,12 +44,14 @@ public class MyFirstMicroserviceApplication {
 			ActorRepository actorRepository,
 			FilmRepository filmRepository,
 			FilmCategoryRepository filmCategoryRepository,
+			FilmActorRepository filmActorRepository,
 			CategoryRepository categoryRepository,
 			LanguageRepository languageRepository){
 
 		this.actorRepository = actorRepository;
 		this.filmRepository = filmRepository;
 		this.filmCategoryRepository = filmCategoryRepository;
+		this.filmActorRepository = filmActorRepository;
 		this.categoryRepository = categoryRepository;
 		this.languageRepository = languageRepository;
 	}
@@ -73,17 +83,25 @@ public class MyFirstMicroserviceApplication {
 
 
 	// Deletes Actor
-	@DeleteMapping("/Delete_Actor")
-	public @ResponseBody String removeActor (@RequestParam int actor_id){
+	@DeleteMapping("/Delete_Actor/{actor_id}")
+	public @ResponseBody String removeActor (@PathVariable int actor_id){
 
-			//Actor deleteActor = actorRepository.findById(actor_id).get();
-			//actorRepository.delete(deleteActor);
-			actorRepository.deleteById(actor_id);
-			return "Actor " + actor_id + " deleted.";
+//			//Actor deleteActor = actorRepository.findById(actor_id).get();
+//			//actorRepository.delete(deleteActor);
+//		if (actorRepository.existsById(actor_id)) {
+//			actorRepository.deleteById(actor_id);
+//			return "Actor " + actor_id + " deleted.";
+//		} else {
+//			return "Actor not found";
+//		}
+		Actor newActor = actorRepository.findById(actor_id).orElseThrow( () -> new ResourceNotFoundException("Actor " + actor_id + " not found."));
+		actorRepository.delete(newActor);
+		return "Actor " + newActor.getActor_id() + " deleted.";
+
 	}
 
-	@PutMapping ("/Update_Actor")
-	public @ResponseBody String updateActor(@RequestParam int actor_id, String first_name, String last_name){
+	@PutMapping ("/Update_Actor/{actor_id}")
+	public @ResponseBody String updateActor(@PathVariable int actor_id, @RequestParam String first_name, @RequestParam String last_name){
 
 			Actor actor = actorRepository.findById(actor_id).get();
 			actor.setFirst_name(first_name);
@@ -112,11 +130,35 @@ public class MyFirstMicroserviceApplication {
 	}
 
 
-	@GetMapping("/Film_By_ID")
-	public @ResponseBody Optional<Film> getFilmById (@RequestParam int film_id){
+	@GetMapping("/Film_By_ID/{film_id}")
+	public @ResponseBody Optional<Film> getFilmById (@PathVariable int film_id){
+
 		return filmRepository.findById(film_id);
 	}
 
+
+	// Returns a list of films that have the keyword
+	@GetMapping("/Film_By_Keyword/{keyword}")
+	public ResponseEntity <List<Film>> getFilmByKeyword(@PathVariable String keyword){
+
+		// Used for the SQL query:
+		keyword = "%" + keyword + "%";
+
+		return new ResponseEntity<List<Film>>(filmRepository.findByTitleLikeOrDescriptionLike(keyword,  keyword),HttpStatus.OK);
+	}
+
+	@GetMapping("/All_Film_Actors")
+	public @ResponseBody
+	Iterable<FilmActor>getAllFilmActors(){
+		return filmActorRepository.findAll();
+	}
+
+
+	// Returns list of films by actor id
+	@GetMapping("/Film_By_Actor/{actorId}")
+	public ResponseEntity <List<FilmActor>> getFilmByActor(@PathVariable int actorId){
+		return new ResponseEntity<List<FilmActor>>(filmActorRepository.findByActorId(actorId),HttpStatus.OK);
+	}
 
 
 

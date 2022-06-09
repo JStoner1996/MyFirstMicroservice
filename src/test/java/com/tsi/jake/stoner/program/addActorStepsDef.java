@@ -33,6 +33,8 @@ public class addActorStepsDef {
     @Mock
     private FilmCategoryRepository filmCategoryRepository;
     @Mock
+    private FilmActorRepository filmActorRepository;
+    @Mock
     private CategoryRepository categoryRepository;
     @Mock
     private LanguageRepository languageRepository;
@@ -42,18 +44,18 @@ public class addActorStepsDef {
     String Expected;
     String Actual;
 
-
     @BeforeEach
     void setup(){
 
         // sets up the mock data
-        languageRepository = mock(LanguageRepository.class);
         actorRepository= mock(ActorRepository.class);
         filmRepository= mock(FilmRepository.class);
-        categoryRepository= mock(CategoryRepository.class);
         filmCategoryRepository= mock(FilmCategoryRepository.class);
+        filmActorRepository= mock(FilmActorRepository.class);
+        categoryRepository= mock(CategoryRepository.class);
+        languageRepository = mock(LanguageRepository.class);
 
-        myFirstMicroserviceApplication = new MyFirstMicroserviceApplication(actorRepository, filmRepository, filmCategoryRepository, categoryRepository, languageRepository);
+        myFirstMicroserviceApplication = new MyFirstMicroserviceApplication(actorRepository, filmRepository, filmCategoryRepository, filmActorRepository, categoryRepository, languageRepository);
 
     }
 
