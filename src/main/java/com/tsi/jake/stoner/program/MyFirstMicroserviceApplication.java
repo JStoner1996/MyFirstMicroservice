@@ -91,7 +91,7 @@ public class MyFirstMicroserviceApplication {
 	@DeleteMapping("/Delete_Actor")
 	public @ResponseBody String removeActor (@RequestParam int actor_id){
 
-		Actor newActor = actorRepository.findById(actor_id).orElseThrow( () -> new ResourceNotFoundException("Actor " + actor_id + " not found."));
+		Actor newActor = actorRepository.findById(actor_id).orElseThrow( () -> new ResourceNotFoundException(ACTOR_STRING + actor_id + " not found."));
 
 		actorRepository.delete(newActor);
 		return ACTOR_STRING + newActor.getActor_id() + " deleted.";
@@ -118,7 +118,7 @@ public class MyFirstMicroserviceApplication {
 			actor.setFirst_name(first_name);
 			actor.setLast_name(last_name);
 			actorRepository.save(actor);
-			return "Actor " + actor_id + " updated.";
+			return ACTOR_STRING + actor_id + " updated.";
 	}
 
 	// ---------------------Films---------------------
@@ -143,7 +143,7 @@ public class MyFirstMicroserviceApplication {
 		return categoryRepository.findAll();
 	}
 
-	// returns a film's information by it's Id
+	// returns a film's information by its ID
 	@GetMapping("/Film_By_ID/{film_id}")
 	public @ResponseBody Optional<Film> getFilmById (@PathVariable int film_id){
 
