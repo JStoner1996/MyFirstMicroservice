@@ -35,6 +35,7 @@ public class MyFirstMicroserviceApplication {
 
 	static final String ACTOR_STRING = "Actor ";
 	static final String FILM_STRING = "Film ";
+	static final String DOES_NOT_EXIST = " does not exist";
 
 	public static void main(String[] args) {
 		SpringApplication.run(MyFirstMicroserviceApplication.class, args);
@@ -77,7 +78,7 @@ public class MyFirstMicroserviceApplication {
 	public @ResponseBody Optional<Actor> getActorById (@PathVariable int actor_id){
 	if (actorRepository.existsById(actor_id)){
 		return actorRepository.findById(actor_id);
-	} else throw new ResourceNotFoundException(ACTOR_STRING + actor_id + " does not exist");
+	} else throw new ResourceNotFoundException(ACTOR_STRING + actor_id + " DOES_NOT_EXIST exist");
 	}
 
 	// Adds Actor
@@ -96,7 +97,7 @@ public class MyFirstMicroserviceApplication {
 		if (actorRepository.existsById(actor_id)){
 			actorRepository.deleteById(actor_id);
 			return ACTOR_STRING + actor_id + " deleted. ";
-		} else throw new ResourceNotFoundException(ACTOR_STRING + actor_id + " does not exist");
+		} else throw new ResourceNotFoundException(ACTOR_STRING + actor_id + " DOES_NOT_EXIST exist");
 	}
 
 	// Updates actor with new names
@@ -138,7 +139,7 @@ public class MyFirstMicroserviceApplication {
 
 		if (filmRepository.existsById(film_id)){
 			return filmRepository.findById(film_id);
-		} else throw new ResourceNotFoundException(FILM_STRING + film_id + " does not exist");
+		} else throw new ResourceNotFoundException(FILM_STRING + film_id + " DOES_NOT_EXIST exist");
 
 	}
 
