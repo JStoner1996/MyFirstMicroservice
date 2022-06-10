@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
-@CrossOrigin (origins = "*") // needed for receiving request via api
 @SpringBootApplication
 @RestController // Handles GET, POST, DELETE, PUT requests
 @RequestMapping("/home") //base url,  so url would be: localhost:8080/home/{Mapping}
