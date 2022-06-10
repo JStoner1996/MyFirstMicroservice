@@ -18,8 +18,6 @@ class addActorStepsDef {
 
 
     //Creates mock or fake data
-
-
     @Mock
     private MyFirstMicroserviceApplication myFirstMicroserviceApplication;
 

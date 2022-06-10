@@ -17,8 +17,10 @@ import java.util.Optional;
 @RestController // Handles GET, POST, DELETE, PUT requests
 @RequestMapping("/home") //base url,  so url would be: localhost:8080/home/{Mapping}
 
-public class MyFirstMicroserviceApplication {
 
+
+public class MyFirstMicroserviceApplication {
+	String TestSmells = "Smells";
 	//@Autowired - To my understanding links together classes to the database
 	@Autowired
 	private ActorRepository actorRepository;
