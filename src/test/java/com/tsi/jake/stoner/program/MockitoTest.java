@@ -8,6 +8,10 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -32,6 +36,8 @@ public class MockitoTest {
 
     @Mock
     Actor newActor = new Actor(1, "Tom", "Shanks");
+    @Mock
+    Film testFilm = new Film ("Chicken Run", "Chicken's Run", 150, 1);
 
     //Used for Assertions
     String Expected;
@@ -60,18 +66,20 @@ public class MockitoTest {
     @Test
     public void testAddActor(){
         Actual = myFirstMicroserviceApplication.addActor(newActor.getFirst_name(), newActor.getLast_name());
-        ArgumentCaptor<Actor> actorArgumentCaptor = ArgumentCaptor.forClass(Actor.class);
-        verify(actorRepository).save(actorArgumentCaptor.capture());
-        actorArgumentCaptor.getValue();
+        ArgumentCaptor<Actor> actorArgumentCaptor = ArgumentCaptor.forClass(Actor.class); //Allows you to capture arguments passed to a method in this case, its catching the Actor class
+        verify(actorRepository).save(actorArgumentCaptor.capture()); // Verify checks to make sure the method has run
+        actorArgumentCaptor.getValue(); // From my understanding, it would get the last value added to the actorArgumentCaptor, in this case the Actor class
         Expected = "Actor added.";
         Assertions.assertEquals(Expected, Actual, "Actor not saved in Database.");
-
     }
 //    @Test void testDeleteActor(){
 //
-//        Mockito.when(newActor.getActor_id()).thenReturn(1);
+//        when(myFirstMicroserviceApplication.removeActorByID((0)).
+//
+//
 //        Actual = myFirstMicroserviceApplication.removeActor(newActor.getActor_id());
 //        Expected = "Actor " + newActor.getActor_id() + " deleted.";
+//
 //        Assertions.assertEquals(Expected, Actual, "Actor " + newActor.getActor_id() + " still exists");
 //
 //
@@ -79,9 +87,10 @@ public class MockitoTest {
 
 
 //    @Test void testUpdateActor(){
-//        when(newActor.getActor_id()).thenReturn(1);
+//
 //        String expected = "Actor " + newActor.getActor_id() + " updated.";
 //        String Actual = myFirstMicroserviceApplication.updateActor(newActor.getActor_id(), "Steven", "Smith");
+//        when(newActor.getActor_id()).thenReturn(1);
 //        Assertions.assertEquals(expected, Actual, "Actor first name not updated");
 //
 //   }
@@ -102,8 +111,10 @@ public class MockitoTest {
     }
     @Test
     public void getAllFilms(){
-        myFirstMicroserviceApplication.getAllFilms();
-        verify(filmRepository).findAll();
+        List<Film> filmList = new ArrayList<>();
+        filmList.add(testFilm);
+        when(myFirstMicroserviceApplication.getAllFilms()).thenReturn(filmList);
+        Assertions.assertEquals(filmList, myFirstMicroserviceApplication.getAllFilms());
     }
 
     @Test

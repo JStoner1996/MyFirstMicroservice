@@ -3,7 +3,7 @@ package com.tsi.jake.stoner.program;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-public class FilmTests {
+ class FilmTests {
     private int Expected;
     private int Actual;
 
@@ -13,14 +13,14 @@ public class FilmTests {
     private Film testFilm = new Film(1,"Chicken Run", "Chicken's Run", 125, 1 );
 
     @Test
-    public void testGetFilm_id(){
+     void testGetFilm_id(){
         Expected = 1;
         Actual = testFilm.getFilm_id();
         Assertions.assertEquals(Expected, Actual, "Returns incorrect Film ID");
     }
 
     @Test
-    public void testSetFilm_id(){
+     void testSetFilm_id(){
         Expected = 5;
         testFilm.setFilm_id(Expected);
         Actual = testFilm.getFilm_id();
@@ -28,14 +28,14 @@ public class FilmTests {
     }
 
     @Test
-    public void testGetTitle(){
+     void testGetTitle(){
         ExpectedS = "Chicken Run";
         ActualS = testFilm.getTitle();
         Assertions.assertEquals(ExpectedS, ActualS, "Returns incorrect Title");
     }
 
     @Test
-    public void testSetTitle(){
+     void testSetTitle(){
         ExpectedS = "Resident Evil";
         testFilm.setTitle(ExpectedS);
         ActualS = testFilm.getTitle();
@@ -43,14 +43,14 @@ public class FilmTests {
     }
 
     @Test
-    public void testGetDescription(){
+     void testGetDescription(){
         ExpectedS = "Chicken's Run";
         ActualS = testFilm.getDescription();
         Assertions.assertEquals(ExpectedS, ActualS, "Returns incorrect Description");
     }
 
     @Test
-    public void testSetDescription(){
+     void testSetDescription(){
         ExpectedS = "Scary Zombies";
         testFilm.setDescription(ExpectedS);
         ActualS = testFilm.getDescription();
@@ -59,14 +59,14 @@ public class FilmTests {
 
 
     @Test
-    public void testGetLength(){
+     void testGetLength(){
         Expected = 125;
         Actual = testFilm.getLength();
         Assertions.assertEquals(Expected, Actual, "Returns incorrect Length");
     }
 
     @Test
-    public void testSetLength(){
+     void testSetLength(){
         Expected = 150;
         testFilm.setLength(Expected);
         Actual = testFilm.getLength();
@@ -74,14 +74,14 @@ public class FilmTests {
     }
 
     @Test
-    public void testGetLanguage_id(){
+     void testGetLanguage_id(){
         Expected = 1;
         Actual = testFilm.getLanguage_id();
         Assertions.assertEquals(Expected, Actual, "Returns incorrect Film ID");
     }
 
     @Test
-    public void testSetLanguage_id(){
+     void testSetLanguage_id(){
         Expected = 2;
         testFilm.setLanguage_id(Expected);
         Actual = testFilm.getLanguage_id();

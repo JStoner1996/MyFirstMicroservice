@@ -14,7 +14,7 @@ import static org.mockito.Mockito.mock;
 
 @ExtendWith(MockitoExtension.class)
 
-public class addActorStepsDef {
+class addActorStepsDef {
 
 
     //Creates mock or fake data

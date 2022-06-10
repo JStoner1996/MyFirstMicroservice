@@ -10,14 +10,14 @@ public class FilmActorTests {
     private FilmActor testFilmActor = new FilmActor(1, 1);
 
     @Test
-    public void testGetFilm_id(){
+     void testGetFilm_id(){
         Expected = 1;
         Actual = testFilmActor.getFilm_id();
         Assertions.assertEquals(Expected, Actual, "Returns incorrect Film ID");
     }
 
     @Test
-    public void testSetFilm_id(){
+     void testSetFilm_id(){
         Expected = 5;
         testFilmActor.setFilm_id(Expected);
         Actual = testFilmActor.getFilm_id();
@@ -25,14 +25,14 @@ public class FilmActorTests {
     }
 
     @Test
-    public void testGetActor_id(){
+     void testGetActor_id(){
         Expected = 1;
         Actual = testFilmActor.getActorId();
         Assertions.assertEquals(Expected, Actual, "Returns incorrect Category ID");
     }
 
     @Test
-    public void testSetActor_id(){
+     void testSetActor_id(){
         Expected = 5;
         testFilmActor.setActorId(Expected);
         Actual = testFilmActor.getActorId();
