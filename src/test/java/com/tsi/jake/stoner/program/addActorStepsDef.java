@@ -8,12 +8,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.http.ResponseEntity;
+
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
-
-import java.util.Optional;
 
 @ExtendWith(MockitoExtension.class)
 
@@ -21,11 +18,11 @@ public class addActorStepsDef {
 
 
     //Creates mock or fake data
-    @Mock
-    Actor testActor = new Actor ();
+
 
     @Mock
     private MyFirstMicroserviceApplication myFirstMicroserviceApplication;
+
     @Mock
     private ActorRepository actorRepository;
     @Mock
@@ -39,15 +36,17 @@ public class addActorStepsDef {
     @Mock
     private LanguageRepository languageRepository;
 
+    @Mock
+    Actor testActor = new Actor ();
 
     //Used for Assertions
     String Expected;
     String Actual;
 
+    // Ran before each Test, setting up mock repositories
     @BeforeEach
     void setup(){
 
-        // sets up the mock data
         actorRepository= mock(ActorRepository.class);
         filmRepository= mock(FilmRepository.class);
         filmCategoryRepository= mock(FilmCategoryRepository.class);
@@ -64,11 +63,12 @@ public class addActorStepsDef {
         testActor.setFirst_name("First");
         testActor.setFirst_name("Last");
         testActor.setActor_id(1);
-        setup();
+
     }
 
     @When("The information is inputted")
     public void the_information_is_inputted() {
+        setup();
     Actual = myFirstMicroserviceApplication.addActor(testActor.getFirst_name(), testActor.getLast_name());
     }
 

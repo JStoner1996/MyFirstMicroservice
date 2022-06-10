@@ -6,18 +6,17 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-
-import java.util.Optional;
 
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class MockitoTest {
 
+    // @Mock - States that the object will be mock data
     @Mock
     private MyFirstMicroserviceApplication myFirstMicroserviceApplication;
+
     @Mock
     private ActorRepository actorRepository;
     @Mock
@@ -34,13 +33,19 @@ public class MockitoTest {
     @Mock
     Actor newActor = new Actor(1, "Tom", "Shanks");
 
+    //Used for Assertions
     String Expected;
     String Actual;
 
-
-    // Set up temp db
+    // Ran before each Test, setting up mock repositories
     @BeforeEach
     void setUp(){
+        actorRepository= mock(ActorRepository.class);
+        filmRepository= mock(FilmRepository.class);
+        filmCategoryRepository= mock(FilmCategoryRepository.class);
+        filmActorRepository= mock(FilmActorRepository.class);
+        categoryRepository= mock(CategoryRepository.class);
+        languageRepository = mock(LanguageRepository.class);
         myFirstMicroserviceApplication = new MyFirstMicroserviceApplication(actorRepository, filmRepository, filmCategoryRepository, filmActorRepository,categoryRepository, languageRepository);
     }
 

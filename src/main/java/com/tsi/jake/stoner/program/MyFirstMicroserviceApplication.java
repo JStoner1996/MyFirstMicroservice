@@ -16,10 +16,11 @@ import java.util.Optional;
 @CrossOrigin (origins = "*") // needed for receiving request via api
 @SpringBootApplication
 @RestController // Handles GET, POST, DELETE, PUT requests
-@RequestMapping("/home")//base url
+@RequestMapping("/home") //base url, right now it's hosted on local host so url would be: localhost:8080/home/{Mapping}
 
 public class MyFirstMicroserviceApplication {
 
+	//@Autowired - To my understanding links together classes to the database
 	@Autowired
 	private ActorRepository actorRepository;
 	@Autowired
@@ -88,7 +89,6 @@ public class MyFirstMicroserviceApplication {
 		return "Actor added.";
 	}
 
-
 	// Deletes Actor
 	@DeleteMapping("/Delete_Actor")
 	public @ResponseBody String removeActor (@RequestParam int actor_id){
@@ -112,6 +112,7 @@ public class MyFirstMicroserviceApplication {
 		}
 	}
 
+	// Updates actor with new names
 	@PutMapping ("/Update_Actor/{actor_id}")
 	public @ResponseBody String updateActor(@PathVariable int actor_id, @RequestParam String first_name, @RequestParam String last_name){
 
@@ -123,33 +124,37 @@ public class MyFirstMicroserviceApplication {
 	}
 
 	// ---------------------Films---------------------
+	// Returns a list of all films
 	@GetMapping("/All_Films")
 	public @ResponseBody
 	Iterable<Film>getAllFilms(){
 		return filmRepository.findAll();
 	}
 
+	// Returns a list of all film ids their category ids
 	@GetMapping("/All_FilmCategories")
 	public @ResponseBody
 	Iterable<FilmCategory>getAllFilmCategories(){
 		return filmCategoryRepository.findAll();
 	}
 
+	// Returns a list of all categories and their ids
 	@GetMapping("/All_Categories")
 	public @ResponseBody
 	Iterable<Category>getAllCategories(){
 		return categoryRepository.findAll();
 	}
 
-
+	// returns a film's information by it's Id
 	@GetMapping("/Film_By_ID/{film_id}")
 	public @ResponseBody Optional<Film> getFilmById (@PathVariable int film_id){
 
 		return filmRepository.findById(film_id);
 	}
 
-
 	// Returns a list of films that have the keyword
+	// SQL Query: SELECT * FROM sakila.film WHERE title LIKE '%{keyword}%' OR description LIKE '%{keyword}%’;
+	// NEED TO CHANGE TO ADD FILM_TEXT TABLE AND USE THAT INSTEAD!
 	@GetMapping("/Film_By_Keyword/{keyword}")
 	public ResponseEntity <List<Film>> getFilmByKeyword(@PathVariable String keyword){
 		// Used for the SQL query:
@@ -157,22 +162,23 @@ public class MyFirstMicroserviceApplication {
 		return new ResponseEntity<List<Film>>(filmRepository.findByTitleLikeOrDescriptionLike(keyword,  keyword),HttpStatus.OK);
 	}
 
+	// Returns a list of actor id's and their film id's
 	@GetMapping("/All_Film_Actors")
 	public @ResponseBody
 	Iterable<FilmActor>getAllFilmActors(){
 		return filmActorRepository.findAll();
 	}
 
-
-	// Returns list of films by actor id
+	// Returns list of film ids by actor id - plan to use this to get film information
+	// SQL Query:
 	@GetMapping("/Film_By_Actor/{actorId}")
 	public ResponseEntity <List<FilmActor>> getFilmByActor(@PathVariable int actorId){
 		return new ResponseEntity<List<FilmActor>>(filmActorRepository.findByActorId(actorId),HttpStatus.OK);
 	}
 
-
-
 	// ---------------------Languages---------------------
+
+	// Returns all languages
 	@GetMapping("/All_Languages")
 	public @ResponseBody
 	Iterable<Language>getAllLanguages(){
