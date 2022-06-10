@@ -61,7 +61,7 @@ public class addActorStepsDef {
     @Given("I have Actor information")
     public void i_have_actor_information() {
         testActor.setFirst_name("First");
-        testActor.setFirst_name("Last");
+        testActor.setLast_name("Last");
         testActor.setActor_id(1);
 
     }

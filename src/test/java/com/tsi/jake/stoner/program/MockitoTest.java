@@ -87,6 +87,13 @@ public class MockitoTest {
 //   }
 
     // ---------------------Films--------------------- //
+
+    @Test
+    public void getFilmByKeyword(){
+        String keyword = "Data";
+        myFirstMicroserviceApplication.getFilmByKeyword(keyword);
+        verify(filmRepository).findByTitleLikeOrDescriptionLike("%"+ keyword + "%", "%" + keyword + "%");
+    }
     @Test
     public void getAllFilms(){
         myFirstMicroserviceApplication.getAllFilms();
