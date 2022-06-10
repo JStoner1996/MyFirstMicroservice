@@ -56,7 +56,13 @@ public class MyFirstMicroserviceApplication {
 		this.languageRepository = languageRepository;
 	}
 
-
+	/*-----------------------------------------------------------
+	 					Mappings (CRUD)
+	@PostMapping - mapping HTTP 'POST' requests (CREATE)
+	@GetMapping - mapping HTTP 'GET' requests (READ)
+	@PutMapping - mapping HTTP 'Put' requests (UPDATE)
+	@DeleteMapping - mapping HTTP 'Delete' requests (DELETE)
+	-----------------------------------------------------------*/
 	// ---------------------Actors---------------------
 
 	// Gets all actors
@@ -69,9 +75,10 @@ public class MyFirstMicroserviceApplication {
 	// Gets actor by id
 	@GetMapping("/Actor_By_ID/{actor_id}")
 	public @ResponseBody Optional<Actor> getActorById (@PathVariable int actor_id){
+		Actor actor = actorRepository.findById(actor_id)
+				.orElseThrow(() -> new ResourceNotFoundException("Actor " + actor_id + " does not exist"));
 		return actorRepository.findById(actor_id);
 	}
-
 
 	// Adds Actor
 	@PostMapping("/Add_Actor")
@@ -83,21 +90,26 @@ public class MyFirstMicroserviceApplication {
 
 
 	// Deletes Actor
-	@DeleteMapping("/Delete_Actor/{actor_id}")
-	public @ResponseBody String removeActor (@PathVariable int actor_id){
+	@DeleteMapping("/Delete_Actor")
+	public @ResponseBody String removeActor (@RequestParam int actor_id){
 
-//			//Actor deleteActor = actorRepository.findById(actor_id).get();
-//			//actorRepository.delete(deleteActor);
-//		if (actorRepository.existsById(actor_id)) {
-//			actorRepository.deleteById(actor_id);
-//			return "Actor " + actor_id + " deleted.";
-//		} else {
-//			return "Actor not found";
-//		}
 		Actor newActor = actorRepository.findById(actor_id).orElseThrow( () -> new ResourceNotFoundException("Actor " + actor_id + " not found."));
+
 		actorRepository.delete(newActor);
 		return "Actor " + newActor.getActor_id() + " deleted.";
 
+	}
+
+	// Deletes actor with a message if actor not found
+	@DeleteMapping("/Delete_Actor_By_ID")
+	public @ResponseBody String removeActorByID (@RequestParam int actor_id){
+
+		if (actorRepository.existsById(actor_id)){
+			actorRepository.deleteById(actor_id);
+			return "Actor " + actor_id + " deleted.";
+		} else {
+			return "Actor not found";
+		}
 	}
 
 	@PutMapping ("/Update_Actor/{actor_id}")
@@ -140,10 +152,8 @@ public class MyFirstMicroserviceApplication {
 	// Returns a list of films that have the keyword
 	@GetMapping("/Film_By_Keyword/{keyword}")
 	public ResponseEntity <List<Film>> getFilmByKeyword(@PathVariable String keyword){
-
 		// Used for the SQL query:
 		keyword = "%" + keyword + "%";
-
 		return new ResponseEntity<List<Film>>(filmRepository.findByTitleLikeOrDescriptionLike(keyword,  keyword),HttpStatus.OK);
 	}
 

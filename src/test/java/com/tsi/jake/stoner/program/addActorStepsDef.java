@@ -22,7 +22,7 @@ public class addActorStepsDef {
 
     //Creates mock or fake data
     @Mock
-    Actor testActor = new Actor (1, "First", "Last");
+    Actor testActor = new Actor ();
 
     @Mock
     private MyFirstMicroserviceApplication myFirstMicroserviceApplication;
@@ -61,6 +61,9 @@ public class addActorStepsDef {
 
     @Given("I have Actor information")
     public void i_have_actor_information() {
+        testActor.setFirst_name("First");
+        testActor.setFirst_name("Last");
+        testActor.setActor_id(1);
         setup();
     }
 
