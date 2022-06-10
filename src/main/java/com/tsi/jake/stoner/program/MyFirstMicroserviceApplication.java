@@ -35,6 +35,7 @@ public class MyFirstMicroserviceApplication {
 	private LanguageRepository languageRepository;
 
 	static final String ACTOR_STRING = "Actor ";
+	static final String FILM_STRING = "Film ";
 
 	public static void main(String[] args) {
 		SpringApplication.run(MyFirstMicroserviceApplication.class, args);
@@ -75,8 +76,9 @@ public class MyFirstMicroserviceApplication {
 	// Gets actor by id
 	@GetMapping("/Actor_By_ID/{actor_id}")
 	public @ResponseBody Optional<Actor> getActorById (@PathVariable int actor_id){
-		actorRepository.findById(actor_id).orElseThrow(() -> new ResourceNotFoundException(ACTOR_STRING + actor_id + " does not exist"));
+	if (actorRepository.existsById(actor_id)){
 		return actorRepository.findById(actor_id);
+	} else throw new ResourceNotFoundException(ACTOR_STRING + actor_id + " does not exist");
 	}
 
 	// Adds Actor
@@ -87,16 +89,6 @@ public class MyFirstMicroserviceApplication {
 		return ACTOR_STRING +  "added.";
 	}
 
-	// Deletes Actor
-	@DeleteMapping("/Delete_Actor")
-	public @ResponseBody String removeActor (@RequestParam int actor_id){
-
-		Actor newActor = actorRepository.findById(actor_id).orElseThrow( () -> new ResourceNotFoundException(ACTOR_STRING + actor_id + " not found."));
-
-		actorRepository.delete(newActor);
-		return ACTOR_STRING + newActor.getActor_id() + " deleted.";
-
-	}
 
 	// Deletes actor with a message if actor not found
 	@DeleteMapping("/Delete_Actor_By_ID")
@@ -104,10 +96,8 @@ public class MyFirstMicroserviceApplication {
 
 		if (actorRepository.existsById(actor_id)){
 			actorRepository.deleteById(actor_id);
-			return ACTOR_STRING + actor_id + " deleted.";
-		} else {
-			return ACTOR_STRING + "not found";
-		}
+			return ACTOR_STRING + actor_id + " deleted. ";
+		} else throw new ResourceNotFoundException(ACTOR_STRING + actor_id + " does not exist");
 	}
 
 	// Updates actor with new names
@@ -147,7 +137,10 @@ public class MyFirstMicroserviceApplication {
 	@GetMapping("/Film_By_ID/{film_id}")
 	public @ResponseBody Optional<Film> getFilmById (@PathVariable int film_id){
 
-		return filmRepository.findById(film_id);
+		if (filmRepository.existsById(film_id)){
+			return filmRepository.findById(film_id);
+		} else throw new ResourceNotFoundException(FILM_STRING + film_id + " does not exist");
+
 	}
 
 	// Returns a list of films that have the keyword
