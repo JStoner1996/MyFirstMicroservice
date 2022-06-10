@@ -78,7 +78,7 @@ public class MyFirstMicroserviceApplication {
 	public @ResponseBody Optional<Actor> getActorById (@PathVariable int actor_id){
 	if (actorRepository.existsById(actor_id)){
 		return actorRepository.findById(actor_id);
-	} else throw new ResourceNotFoundException(ACTOR_STRING + actor_id + " DOES_NOT_EXIST exist");
+	} else throw new ResourceNotFoundException(ACTOR_STRING + actor_id + DOES_NOT_EXIST);
 	}
 
 	// Adds Actor
@@ -97,18 +97,20 @@ public class MyFirstMicroserviceApplication {
 		if (actorRepository.existsById(actor_id)){
 			actorRepository.deleteById(actor_id);
 			return ACTOR_STRING + actor_id + " deleted. ";
-		} else throw new ResourceNotFoundException(ACTOR_STRING + actor_id + " DOES_NOT_EXIST exist");
+		} else throw new ResourceNotFoundException(ACTOR_STRING + actor_id + DOES_NOT_EXIST);
 	}
 
 	// Updates actor with new names
 	@PutMapping ("/Update_Actor/{actor_id}")
 	public @ResponseBody String updateActor(@PathVariable int actor_id, @RequestParam String first_name, @RequestParam String last_name){
 
-			Actor actor = actorRepository.findById(actor_id).get();
-			actor.setFirst_name(first_name);
-			actor.setLast_name(last_name);
-			actorRepository.save(actor);
-			return ACTOR_STRING + actor_id + " updated.";
+			if(actorRepository.existsById(actor_id)){
+				Actor actor = actorRepository.findById(actor_id).get();
+				actor.setFirst_name(first_name);
+				actor.setLast_name(last_name);
+				actorRepository.save(actor);
+				return ACTOR_STRING + actor_id + " updated.";
+			} else return ACTOR_STRING + actor_id + DOES_NOT_EXIST;
 	}
 
 	// ---------------------Films---------------------
@@ -139,7 +141,7 @@ public class MyFirstMicroserviceApplication {
 
 		if (filmRepository.existsById(film_id)){
 			return filmRepository.findById(film_id);
-		} else throw new ResourceNotFoundException(FILM_STRING + film_id + " DOES_NOT_EXIST exist");
+		} else throw new ResourceNotFoundException(FILM_STRING + film_id + DOES_NOT_EXIST);
 
 	}
 
