@@ -128,11 +128,11 @@ import static org.mockito.Mockito.*;
         verify(categoryRepository).findAll();
     }
 
-    @Test
-     void getFilmById(){
-        myFirstMicroserviceApplication.getFilmById(55);
-        verify(filmRepository).findById(55);
-    }
+//    @Test
+//     void getFilmById(){
+//        myFirstMicroserviceApplication.getFilmById(55);
+//        verify(filmRepository).findById(55);
+//    }
 
     // ---------------------Languages--------------------- //
     @Test
