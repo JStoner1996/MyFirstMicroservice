@@ -16,7 +16,7 @@ import java.util.Optional;
 @CrossOrigin (origins = "*") // needed for receiving request via api
 @SpringBootApplication
 @RestController // Handles GET, POST, DELETE, PUT requests
-@RequestMapping("/home") //base url, right now it's hosted on local host so url would be: localhost:8080/home/{Mapping}
+@RequestMapping("/home") //base url,  so url would be: localhost:8080/home/{Mapping}
 
 public class MyFirstMicroserviceApplication {
 
@@ -34,9 +34,8 @@ public class MyFirstMicroserviceApplication {
 	@Autowired
 	private LanguageRepository languageRepository;
 
+	static final String ACTOR_STRING = "Actor ";
 
-
-	private String saved = "Saved";
 	public static void main(String[] args) {
 		SpringApplication.run(MyFirstMicroserviceApplication.class, args);
 	}
@@ -76,8 +75,7 @@ public class MyFirstMicroserviceApplication {
 	// Gets actor by id
 	@GetMapping("/Actor_By_ID/{actor_id}")
 	public @ResponseBody Optional<Actor> getActorById (@PathVariable int actor_id){
-		Actor actor = actorRepository.findById(actor_id)
-				.orElseThrow(() -> new ResourceNotFoundException("Actor " + actor_id + " does not exist"));
+		actorRepository.findById(actor_id).orElseThrow(() -> new ResourceNotFoundException(ACTOR_STRING + actor_id + " does not exist"));
 		return actorRepository.findById(actor_id);
 	}
 
@@ -86,7 +84,7 @@ public class MyFirstMicroserviceApplication {
 	public @ResponseBody String addActor (@RequestParam String first_name, @RequestParam String last_name){
 		Actor addActor = new Actor(first_name, last_name);
 		actorRepository.save(addActor);
-		return "Actor added.";
+		return ACTOR_STRING +  "added.";
 	}
 
 	// Deletes Actor
@@ -96,7 +94,7 @@ public class MyFirstMicroserviceApplication {
 		Actor newActor = actorRepository.findById(actor_id).orElseThrow( () -> new ResourceNotFoundException("Actor " + actor_id + " not found."));
 
 		actorRepository.delete(newActor);
-		return "Actor " + newActor.getActor_id() + " deleted.";
+		return ACTOR_STRING + newActor.getActor_id() + " deleted.";
 
 	}
 
@@ -106,9 +104,9 @@ public class MyFirstMicroserviceApplication {
 
 		if (actorRepository.existsById(actor_id)){
 			actorRepository.deleteById(actor_id);
-			return "Actor " + actor_id + " deleted.";
+			return ACTOR_STRING + actor_id + " deleted.";
 		} else {
-			return "Actor not found";
+			return ACTOR_STRING + "not found";
 		}
 	}
 
@@ -159,7 +157,7 @@ public class MyFirstMicroserviceApplication {
 	public ResponseEntity <List<Film>> getFilmByKeyword(@PathVariable String keyword){
 		// Used for the SQL query:
 		keyword = "%" + keyword + "%";
-		return new ResponseEntity<List<Film>>(filmRepository.findByTitleLikeOrDescriptionLike(keyword,  keyword),HttpStatus.OK);
+		return new ResponseEntity<>(filmRepository.findByTitleLikeOrDescriptionLike(keyword,  keyword),HttpStatus.OK);
 	}
 
 	// Returns a list of actor id's and their film id's
@@ -173,7 +171,7 @@ public class MyFirstMicroserviceApplication {
 	// SQL Query:
 	@GetMapping("/Film_By_Actor/{actorId}")
 	public ResponseEntity <List<FilmActor>> getFilmByActor(@PathVariable int actorId){
-		return new ResponseEntity<List<FilmActor>>(filmActorRepository.findByActorId(actorId),HttpStatus.OK);
+		return new ResponseEntity<>(filmActorRepository.findByActorId(actorId),HttpStatus.OK);
 	}
 
 	// ---------------------Languages---------------------

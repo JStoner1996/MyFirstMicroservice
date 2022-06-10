@@ -13,14 +13,14 @@ public class LanguageTests {
     private Language testLanguage = new Language(10, "English");
 
     @Test
-    public void testGetLanguage_id(){
+     void testGetLanguage_id(){
         Expected = 10;
         Actual = testLanguage.getLanguage_id();
         Assertions.assertEquals(Expected, Actual, "Returns incorrect Language ID");
     }
 
     @Test
-    public void testSetLanguage_id(){
+    void testSetLanguage_id(){
         Expected = 5;
         testLanguage.setLanguage_id(Expected);
         Actual = testLanguage.getLanguage_id();
@@ -28,14 +28,14 @@ public class LanguageTests {
     }
 
     @Test
-    public void testGetName(){
+    void testGetName(){
         ExpectedS = "English";
         ActualS = testLanguage.getName();
         Assertions.assertEquals(ExpectedS, ActualS, "Returns incorrect Name");
     }
 
     @Test
-    public void testSetName(){
+   void testSetName(){
         ExpectedS = "French";
         testLanguage.setName(ExpectedS);
         ActualS = testLanguage.getName();

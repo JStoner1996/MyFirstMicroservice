@@ -15,7 +15,7 @@ import java.util.Optional;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class MockitoTest {
+ class MockitoTest {
 
     // @Mock - States that the object will be mock data
     @Mock
@@ -58,13 +58,13 @@ public class MockitoTest {
     // ---------------------Actors--------------------- //
 
     @Test
-    public void getAllActors(){
+     void getAllActors(){
         myFirstMicroserviceApplication.getAllActors();
         verify(actorRepository).findAll();
 
     }
     @Test
-    public void testAddActor(){
+     void testAddActor(){
         Actual = myFirstMicroserviceApplication.addActor(newActor.getFirst_name(), newActor.getLast_name());
         ArgumentCaptor<Actor> actorArgumentCaptor = ArgumentCaptor.forClass(Actor.class); //Allows you to capture arguments passed to a method in this case, its catching the Actor class
         verify(actorRepository).save(actorArgumentCaptor.capture()); // Verify checks to make sure the method has run
@@ -98,19 +98,19 @@ public class MockitoTest {
     // ---------------------Films--------------------- //
 
     @Test
-    public void getFilmByKeyword(){
+     void getFilmByKeyword(){
         String keyword = "Data";
         myFirstMicroserviceApplication.getFilmByKeyword(keyword);
         verify(filmRepository).findByTitleLikeOrDescriptionLike("%"+ keyword + "%", "%" + keyword + "%");
     }
 
     @Test
-    public void getFilmByActor(){
+     void getFilmByActor(){
         myFirstMicroserviceApplication.getFilmByActor(1);
         verify(filmActorRepository).findByActorId(1);
     }
     @Test
-    public void getAllFilms(){
+     void getAllFilms(){
         List<Film> filmList = new ArrayList<>();
         filmList.add(testFilm);
         when(myFirstMicroserviceApplication.getAllFilms()).thenReturn(filmList);
@@ -118,25 +118,25 @@ public class MockitoTest {
     }
 
     @Test
-    public void getAllFilmCategories(){
+     void getAllFilmCategories(){
         myFirstMicroserviceApplication.getAllFilmCategories();
         verify(filmCategoryRepository).findAll();
     }
     @Test
-    public void getAllCategories(){
+     void getAllCategories(){
         myFirstMicroserviceApplication.getAllCategories();
         verify(categoryRepository).findAll();
     }
 
     @Test
-    public void getFilmById(){
+     void getFilmById(){
         myFirstMicroserviceApplication.getFilmById(55);
         verify(filmRepository).findById(55);
     }
 
     // ---------------------Languages--------------------- //
     @Test
-    public void getAllLanguages(){
+     void getAllLanguages(){
         myFirstMicroserviceApplication.getAllLanguages();
         verify(languageRepository).findAll();
     }

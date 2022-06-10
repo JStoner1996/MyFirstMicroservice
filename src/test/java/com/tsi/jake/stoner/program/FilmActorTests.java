@@ -3,7 +3,7 @@ package com.tsi.jake.stoner.program;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-public class FilmActorTests {
+class FilmActorTests {
     private int Expected;
     private int Actual;
 

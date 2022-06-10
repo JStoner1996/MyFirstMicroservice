@@ -57,7 +57,6 @@ import org.junit.jupiter.api.Test;
         Assertions.assertEquals(ExpectedS, ActualS , "Description set incorrectly");
     }
 
-
     @Test
      void testGetLength(){
         Expected = 125;
