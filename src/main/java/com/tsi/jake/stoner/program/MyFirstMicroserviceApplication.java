@@ -101,17 +101,17 @@ public class MyFirstMicroserviceApplication {
 	}
 
 	// Updates actor with new names
-	@PutMapping ("/Update_Actor/{actor_id}")
-	public @ResponseBody String updateActor(@PathVariable int actor_id, @RequestParam String first_name, @RequestParam String last_name){
-
-			if(actorRepository.existsById(actor_id)){
-				Actor actor = actorRepository.findById(actor_id).get();
-				actor.setFirst_name(first_name);
-				actor.setLast_name(last_name);
-				actorRepository.save(actor);
-				return ACTOR_STRING + actor_id + " updated.";
-			} else return ACTOR_STRING + actor_id + DOES_NOT_EXIST;
-	}
+//	@PutMapping ("/Update_Actor/{actor_id}")
+//	public @ResponseBody String updateActor(@PathVariable int actor_id, @RequestParam String first_name, @RequestParam String last_name){
+//
+//			if(actorRepository.existsById(actor_id)){
+//				Actor actor = actorRepository.findById(actor_id).get();
+//				actor.setFirst_name(first_name);
+//				actor.setLast_name(last_name);
+//				actorRepository.save(actor);
+//				return ACTOR_STRING + actor_id + " updated.";
+//			} else return ACTOR_STRING + actor_id + DOES_NOT_EXIST;
+//	}
 
 	// ---------------------Films---------------------
 	// Returns a list of all films
