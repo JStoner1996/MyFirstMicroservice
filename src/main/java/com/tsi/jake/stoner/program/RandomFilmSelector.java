@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
 @SpringBootApplication
 @RestController // Handles GET, POST, DELETE, PUT requests
@@ -37,6 +38,7 @@ public class RandomFilmSelector {
 	static final String ACTOR_STRING = "Actor ";
 	static final String FILM_STRING = "Film ";
 	static final String DOES_NOT_EXIST = " does not exist";
+	Random rand = new Random();
 
 	public static void main(String[] args) {
 		SpringApplication.run(RandomFilmSelector.class, args);
@@ -146,14 +148,26 @@ public class RandomFilmSelector {
 
 	}
 
+	// Random by Keyword
+	@GetMapping("/film/randomByKeyword/{keyword}")
+	public String getRandomFilmByKeyword(@PathVariable String keyword){
+
+		// Used to get size of list
+		List<Film> filmsByWord = getFilmByKeyword(keyword);
+		int max = filmsByWord.size();
+
+		// Chooses a random element from this list and set's title and description to that of the random film
+		Film randomElement = filmsByWord.get(rand.nextInt(max));
+		String title = randomElement.getTitle();
+		String description = randomElement.getDescription();
+		return title + ": " + description;
+	}
+
 	// Returns a list of films that have the keyword
-	// SQL Query: SELECT * FROM sakila.film WHERE title LIKE '%{keyword}%' OR description LIKE '%{keyword}%’;
-	// NEED TO CHANGE TO ADD FILM_TEXT TABLE AND USE THAT INSTEAD!
-	@GetMapping("/film/contains/{keyword}")
-	public ResponseEntity <List<Film>> getFilmByKeyword(@PathVariable String keyword){
+	public List<Film> getFilmByKeyword(String keyword){
 		// Used for the SQL query:
 		keyword = "%" + keyword + "%";
-		return new ResponseEntity<>(filmRepository.findByTitleLikeOrDescriptionLike(keyword,  keyword),HttpStatus.OK);
+		return filmRepository.findByTitleLikeOrDescriptionLike(keyword,  keyword);
 	}
 
 	// Returns a list of actor id's and their film id's
@@ -169,6 +183,41 @@ public class RandomFilmSelector {
 	public ResponseEntity <List<FilmActor>> getFilmByActor(@PathVariable int actorId){
 		return new ResponseEntity<>(filmActorRepository.findByActorId(actorId),HttpStatus.OK);
 	}
+
+
+	// Random By Category
+	@GetMapping ("/film/randomByCategory/{name}")
+	public String getFilmIdByCategory (@PathVariable String name){
+		List <FilmCategory> filmCats = getCategoryIDByName(name);
+		int max = filmCats.size();
+
+		FilmCategory randomElement = filmCats.get(rand.nextInt(max));
+		Optional<Film> randomOptional = getFilmById(randomElement.getFilmId());
+		Film randomFilm= randomOptional.get();
+		String title = randomFilm.getTitle();
+		String description = randomFilm.getDescription();
+		return title + ": " + description;
+	}
+
+	public List<FilmCategory> getCategoryIDByName (@PathVariable String name){
+		if (categoryRepository.findByName(name)!= null){
+			int categoryId = categoryRepository.findByName(name).getCategoryId();
+
+			return filmCategoryRepository.findByCategoryId(categoryId);
+		} else throw new ResourceNotFoundException("Category: " + name + DOES_NOT_EXIST);
+
+	}
+
+
+
+
+
+
+
+
+
+
+
 
 	// ---------------------Languages---------------------
 

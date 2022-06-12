@@ -15,15 +15,15 @@ class LanguageTests {
     @Test
      void testGetLanguage_id(){
         Expected = 10;
-        Actual = testLanguage.getLanguageId();
+        Actual = testLanguage.getLanguage_id();
         Assertions.assertEquals(Expected, Actual, "Returns incorrect Language ID");
     }
 
     @Test
     void testSetLanguage_id(){
         Expected = 5;
-        testLanguage.setLanguageId(Expected);
-        Actual = testLanguage.getLanguageId();
+        testLanguage.setLanguage_id(Expected);
+        Actual = testLanguage.getLanguage_id();
         Assertions.assertEquals(Expected, Actual , "Language ID set incorrectly");
     }
 
