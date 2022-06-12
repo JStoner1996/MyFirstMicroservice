@@ -58,16 +58,16 @@ class addActorStepsDef {
 
     @Given("I have Actor information")
     public void i_have_actor_information() {
-        testActor.setFirst_name("First");
-        testActor.setLast_name("Last");
-        testActor.setActor_id(1);
+        testActor.setFirstName("First");
+        testActor.setLastName("Last");
+        testActor.setActorId(1);
 
     }
 
     @When("The information is inputted")
     public void the_information_is_inputted() {
         setup();
-    Actual = randomFilmSelector.addActor(testActor.getFirst_name(), testActor.getLast_name());
+    Actual = randomFilmSelector.addActor(testActor.getFirstName(), testActor.getLastName());
     }
 
     @Then("I get a return string, confirming the success")

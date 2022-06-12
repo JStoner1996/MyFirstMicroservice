@@ -10,15 +10,16 @@ public class FilmActor {
     // Attributes
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int film_id;
+    @Column (name = "film_id")
+    int filmId;
 
     @Column (name = "actor_id")
     int actorId;
     // Constructor
 
-    public FilmActor(int actorId, int film_id) {
+    public FilmActor(int actorId, int filmId) {
         this.actorId = actorId;
-        this.film_id = film_id;
+        this.filmId = filmId;
     }
 
     public FilmActor(){}
@@ -32,11 +33,11 @@ public class FilmActor {
         this.actorId = actorId;
     }
 
-    public int getFilm_id() {
-        return film_id;
+    public int getFilmId() {
+        return filmId;
     }
 
-    public void setFilm_id(int film_id) {
-        this.film_id = film_id;
+    public void setFilmId(int filmId) {
+        this.filmId = filmId;
     }
 }

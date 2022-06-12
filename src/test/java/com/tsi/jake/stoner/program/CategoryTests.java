@@ -16,15 +16,15 @@ import org.junit.jupiter.api.Test;
     @Test
      void testGetCategory_id(){
         Expected = 10;
-        Actual = testCategory.getCategory_id();
+        Actual = testCategory.getCategoryId();
         Assertions.assertEquals(Expected, Actual, "Returns incorrect Category ID");
     }
 
     @Test
      void testSetCategory_id(){
         Expected = 5;
-        testCategory.setCategory_id(Expected);
-        Actual = testCategory.getCategory_id();
+        testCategory.setCategoryId(Expected);
+        Actual = testCategory.getCategoryId();
         Assertions.assertEquals(Expected, Actual , "Category ID set incorrectly");
     }
 

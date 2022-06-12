@@ -15,15 +15,15 @@ import org.junit.jupiter.api.Test;
     @Test
      void testGetFilm_id(){
         Expected = 1;
-        Actual = testFilm.getFilm_id();
+        Actual = testFilm.getFilmId();
         Assertions.assertEquals(Expected, Actual, "Returns incorrect Film ID");
     }
 
     @Test
      void testSetFilm_id(){
         Expected = 5;
-        testFilm.setFilm_id(Expected);
-        Actual = testFilm.getFilm_id();
+        testFilm.setFilmId(Expected);
+        Actual = testFilm.getFilmId();
         Assertions.assertEquals(Expected, Actual , "Film ID set incorrectly");
     }
 
@@ -75,15 +75,15 @@ import org.junit.jupiter.api.Test;
     @Test
      void testGetLanguage_id(){
         Expected = 1;
-        Actual = testFilm.getLanguage_id();
+        Actual = testFilm.getLanguageId();
         Assertions.assertEquals(Expected, Actual, "Returns incorrect Film ID");
     }
 
     @Test
      void testSetLanguage_id(){
         Expected = 2;
-        testFilm.setLanguage_id(Expected);
-        Actual = testFilm.getLanguage_id();
+        testFilm.setLanguageId(Expected);
+        Actual = testFilm.getLanguageId();
         Assertions.assertEquals(Expected, Actual , "Film ID set incorrectly");
     }
 }

@@ -12,15 +12,15 @@ class FilmActorTests {
     @Test
      void testGetFilm_id(){
         Expected = 1;
-        Actual = testFilmActor.getFilm_id();
+        Actual = testFilmActor.getFilmId();
         Assertions.assertEquals(Expected, Actual, "Returns incorrect Film ID");
     }
 
     @Test
      void testSetFilm_id(){
         Expected = 5;
-        testFilmActor.setFilm_id(Expected);
-        Actual = testFilmActor.getFilm_id();
+        testFilmActor.setFilmId(Expected);
+        Actual = testFilmActor.getFilmId();
         Assertions.assertEquals(Expected, Actual , "Film ID set incorrectly");
     }
 

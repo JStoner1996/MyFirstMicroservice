@@ -17,45 +17,45 @@ class ActorTests {
     @Test
     void testSetActor_id(){
         Expected = 5;
-        testActor.setActor_id(Expected);
-        Actual = testActor.getActor_id();
+        testActor.setActorId(Expected);
+        Actual = testActor.getActorId();
         Assertions.assertEquals(Expected, Actual , "Actor ID set incorrectly");
     }
 
     @Test
     void testGetActor_id(){
         Expected = 10;
-        Actual = testActor.getActor_id();
+        Actual = testActor.getActorId();
         Assertions.assertEquals(Expected, Actual, "Returns incorrect Actor ID");
     }
 
     @Test
      void testSetFirstName(){
         ExpectedS = "John";
-        testActor.setFirst_name(ExpectedS);
-        ActualS = testActor.getFirst_name();
+        testActor.setFirstName(ExpectedS);
+        ActualS = testActor.getFirstName();
         Assertions.assertEquals(ExpectedS, ActualS , "First Name set incorrectly");
     }
 
     @Test
     void testGetFirstName(){
         ExpectedS = "First";
-        ActualS = testActor.getFirst_name();
+        ActualS = testActor.getFirstName();
         Assertions.assertEquals(ExpectedS, ActualS, "Returns incorrect First Name");
     }
 
     @Test
     void testSetLastName(){
         ExpectedS = "Smith";
-        testActor.setLast_name(ExpectedS);
-        ActualS = testActor.getLast_name();
+        testActor.setLastName(ExpectedS);
+        ActualS = testActor.getLastName();
         Assertions.assertEquals(ExpectedS, ActualS , "Last Name set incorrectly");
     }
 
     @Test
     void testGetLastName(){
         ExpectedS = "Last";
-        ActualS = testActor.getLast_name();
+        ActualS = testActor.getLastName();
         Assertions.assertEquals(ExpectedS, ActualS, "Returns incorrect Last Name");
     }
 

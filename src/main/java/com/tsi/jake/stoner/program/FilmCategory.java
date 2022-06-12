@@ -10,31 +10,33 @@ public class FilmCategory {
     // Attributes
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int film_id;
-    int category_id;
+    @Column (name = "film_id")
+    int filmId;
+    @Column (name = "category_id")
+    int categoryId;
     // Constructor
 
-    public FilmCategory(int film_id, int category_id) {
-        this.film_id = film_id;
-        this.category_id = category_id;
+    public FilmCategory(int filmId, int categoryId) {
+        this.filmId = filmId;
+        this.categoryId = categoryId;
     }
 
     public FilmCategory(){}
 
     // Getters
-    public int getFilm_id() {
-        return film_id;
+    public int getFilmId() {
+        return filmId;
     }
 
-    public void setFilm_id(int film_id) {
-        this.film_id = film_id;
+    public void setFilmId(int filmId) {
+        this.filmId = filmId;
     }
 
-    public int getCategory_id() {
-        return category_id;
+    public int getCategoryId() {
+        return categoryId;
     }
 
-    public void setCategory_id(int category_id) {
-        this.category_id = category_id;
+    public void setCategoryId(int categoryId) {
+        this.categoryId = categoryId;
     }
 }

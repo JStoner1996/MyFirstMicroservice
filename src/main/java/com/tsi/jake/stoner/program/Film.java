@@ -1,10 +1,6 @@
 package com.tsi.jake.stoner.program;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 
 @Entity
@@ -15,30 +11,33 @@ public class Film{
     //Attributes
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int film_id;
+    @Column(name = "film_id")
+    int filmId;
 
     String title;
     String description;
 
     int length;
-    int language_id;
+
+    @Column (name = "language_id")
+    int languageId;
 
     //Constructors
 
 
-    public Film(String title, String description, int length, int language_id) {
+    public Film(String title, String description, int length, int languageId) {
         this.title = title;
         this.description = description;
         this.length = length;
-        this.language_id = language_id;
+        this.languageId = languageId;
     }
 
-    public Film(int film_id, String title, String description, int length, int language_id) {
-        this.film_id = film_id;
+    public Film(int filmId, String title, String description, int length, int languageId) {
+        this.filmId = filmId;
         this.title = title;
         this.description = description;
         this.length = length;
-        this.language_id = language_id;
+        this.languageId = languageId;
     }
     public Film(){}
 
@@ -46,12 +45,12 @@ public class Film{
 
 
     // Getters & Setters
-    public int getFilm_id() {
-        return film_id;
+    public int getFilmId() {
+        return filmId;
     }
 
-    public void setFilm_id(int film_id) {
-        this.film_id = film_id;
+    public void setFilmId(int filmId) {
+        this.filmId = filmId;
     }
 
     public String getTitle() {
@@ -78,11 +77,11 @@ public class Film{
         this.length = length;
     }
 
-    public int getLanguage_id() {
-        return language_id;
+    public int getLanguageId() {
+        return languageId;
     }
 
-    public void setLanguage_id(int language_id) {
-        this.language_id = language_id;
+    public void setLanguageId(int languageId) {
+        this.languageId = languageId;
     }
 }

@@ -9,13 +9,14 @@ public class Category {
     // Attributes
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int category_id;
+    @Column (name = "category_id")
+    int categoryId;
     String name;
 
     // Constructor
 
-    public Category(int category_id, String name){
-        this.category_id = category_id;
+    public Category(int categoryId, String name){
+        this.categoryId = categoryId;
         this.name = name;
     }
 
@@ -23,12 +24,12 @@ public class Category {
     // Getters
 
 
-    public int getCategory_id() {
-        return category_id;
+    public int getCategoryId() {
+        return categoryId;
     }
 
-    public void setCategory_id(int category_id) {
-        this.category_id = category_id;
+    public void setCategoryId(int categoryId) {
+        this.categoryId = categoryId;
     }
 
     public String getName() {

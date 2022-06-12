@@ -64,7 +64,7 @@ import static org.mockito.Mockito.*;
     }
     @Test
      void testAddActor(){
-        Actual = randomFilmSelector.addActor(newActor.getFirst_name(), newActor.getLast_name());
+        Actual = randomFilmSelector.addActor(newActor.getFirstName(), newActor.getLastName());
         ArgumentCaptor<Actor> actorArgumentCaptor = ArgumentCaptor.forClass(Actor.class); //Allows you to capture arguments passed to a method in this case, its catching the Actor class
         verify(actorRepository).save(actorArgumentCaptor.capture()); // Verify checks to make sure the method has run
         actorArgumentCaptor.getValue(); // From my understanding, it would get the last value added to the actorArgumentCaptor, in this case the Actor class

@@ -12,30 +12,30 @@ import org.junit.jupiter.api.Test;
     @Test
      void testGetFilm_id(){
         Expected = 1;
-        Actual = testFilmCategory.getFilm_id();
+        Actual = testFilmCategory.getFilmId();
         Assertions.assertEquals(Expected, Actual, "Returns incorrect Film ID");
     }
 
     @Test
      void testSetFilm_id(){
         Expected = 5;
-        testFilmCategory.setFilm_id(Expected);
-        Actual = testFilmCategory.getFilm_id();
+        testFilmCategory.setFilmId(Expected);
+        Actual = testFilmCategory.getFilmId();
         Assertions.assertEquals(Expected, Actual , "Film ID set incorrectly");
     }
 
     @Test
      void testGetCategory_id(){
         Expected = 1;
-        Actual = testFilmCategory.getCategory_id();
+        Actual = testFilmCategory.getCategoryId();
         Assertions.assertEquals(Expected, Actual, "Returns incorrect Category ID");
     }
 
     @Test
      void testSetCategory_id(){
         Expected = 5;
-        testFilmCategory.setCategory_id(Expected);
-        Actual = testFilmCategory.getCategory_id();
+        testFilmCategory.setCategoryId(Expected);
+        Actual = testFilmCategory.getCategoryId();
         Assertions.assertEquals(Expected, Actual , "Category ID set incorrectly");
     }
 }
