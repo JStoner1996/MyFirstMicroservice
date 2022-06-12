@@ -1,6 +1,6 @@
-package com.tsi.jake.stoner.controllers;
+package com.tsi.jake.stoner.program.controllers;
 
-import com.tsi.jake.stoner.Film;
+import com.tsi.jake.stoner.program.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;

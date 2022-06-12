@@ -1,4 +1,4 @@
-package com.tsi.jake.stoner;
+package com.tsi.jake.stoner.program;
 
 import javax.persistence.*;
 

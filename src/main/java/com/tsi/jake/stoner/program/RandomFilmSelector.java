@@ -1,5 +1,5 @@
 
-package com.tsi.jake.stoner;
+package com.tsi.jake.stoner.program;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;

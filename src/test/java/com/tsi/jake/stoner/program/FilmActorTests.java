@@ -1,4 +1,4 @@
-package com.tsi.jake.stoner;
+package com.tsi.jake.stoner.program;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
