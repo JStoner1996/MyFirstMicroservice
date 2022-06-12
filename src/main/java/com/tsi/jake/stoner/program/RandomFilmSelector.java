@@ -15,7 +15,7 @@ import java.util.Optional;
 
 @SpringBootApplication
 @RestController // Handles GET, POST, DELETE, PUT requests
-@RequestMapping("/filmRandomizer") //base url,  so url would be: localhost:8080/home/{Mapping}
+@RequestMapping("/home") //base url,  so url would be: localhost:8080/home/{Mapping}
 
 
 
@@ -34,9 +34,12 @@ public class RandomFilmSelector {
 	@Autowired
 	private LanguageRepository languageRepository;
 
+
+	// CONST Variables
 	static final String ACTOR_STRING = "Actor ";
+	static final String DOES_NOT_EXIST = " does not exist.";
 	static final String FILM_STRING = "Film ";
-	static final String DOES_NOT_EXIST = " does not exist";
+
 
 	public static void main(String[] args) {
 		SpringApplication.run(RandomFilmSelector.class, args);
@@ -68,22 +71,22 @@ public class RandomFilmSelector {
 	// ---------------------Actors---------------------
 
 	// Gets all actors
-	@GetMapping("/actor/actors")
+	@GetMapping("/All_Actors")
 	public @ResponseBody
 	Iterable<Actor>getAllActors(){
 		return actorRepository.findAll();
 	}
 
 	// Gets actor by id
-	@GetMapping("/actor/{actor_id}")
+	@GetMapping("/Actor_By_ID/{actor_id}")
 	public @ResponseBody Optional<Actor> getActorById (@PathVariable int actor_id){
-		if (actorRepository.existsById(actor_id)){
-			return actorRepository.findById(actor_id);
-		} else throw new ResourceNotFoundException(ACTOR_STRING + actor_id + DOES_NOT_EXIST);
+	if (actorRepository.existsById(actor_id)){
+		return actorRepository.findById(actor_id);
+	} else throw new ResourceNotFoundException(ACTOR_STRING + actor_id + DOES_NOT_EXIST);
 	}
 
 	// Adds Actor
-	@PostMapping("/actor/add")
+	@PostMapping("/Add_Actor")
 	public @ResponseBody String addActor (@RequestParam String first_name, @RequestParam String last_name){
 		Actor addActor = new Actor(first_name, last_name);
 		actorRepository.save(addActor);
@@ -92,7 +95,7 @@ public class RandomFilmSelector {
 
 
 	// Deletes actor with a message if actor not found
-	@DeleteMapping("/actor/delete")
+	@DeleteMapping("/Delete_Actor_By_ID")
 	public @ResponseBody String removeActorByID (@RequestParam int actor_id){
 
 		if (actorRepository.existsById(actor_id)){
@@ -116,28 +119,28 @@ public class RandomFilmSelector {
 
 	// ---------------------Films---------------------
 	// Returns a list of all films
-	@GetMapping("/film/films")
+	@GetMapping("/All_Films")
 	public @ResponseBody
 	Iterable<Film>getAllFilms(){
 		return filmRepository.findAll();
 	}
 
 	// Returns a list of all film ids their category ids
-	@GetMapping("/film/filmCategories")
+	@GetMapping("/All_FilmCategories")
 	public @ResponseBody
 	Iterable<FilmCategory>getAllFilmCategories(){
 		return filmCategoryRepository.findAll();
 	}
 
 	// Returns a list of all categories and their ids
-	@GetMapping("/film/categories")
+	@GetMapping("/All_Categories")
 	public @ResponseBody
 	Iterable<Category>getAllCategories(){
 		return categoryRepository.findAll();
 	}
 
 	// returns a film's information by its ID
-	@GetMapping("/film/{film_id}")
+	@GetMapping("/Film_By_ID/{film_id}")
 	public @ResponseBody Optional<Film> getFilmById (@PathVariable int film_id){
 
 		if (filmRepository.existsById(film_id)){
@@ -149,7 +152,7 @@ public class RandomFilmSelector {
 	// Returns a list of films that have the keyword
 	// SQL Query: SELECT * FROM sakila.film WHERE title LIKE '%{keyword}%' OR description LIKE '%{keyword}%’;
 	// NEED TO CHANGE TO ADD FILM_TEXT TABLE AND USE THAT INSTEAD!
-	@GetMapping("/film/contains/{keyword}")
+	@GetMapping("/Film_By_Keyword/{keyword}")
 	public ResponseEntity <List<Film>> getFilmByKeyword(@PathVariable String keyword){
 		// Used for the SQL query:
 		keyword = "%" + keyword + "%";
@@ -157,7 +160,7 @@ public class RandomFilmSelector {
 	}
 
 	// Returns a list of actor id's and their film id's
-	@GetMapping("/film/actors")
+	@GetMapping("/All_Film_Actors")
 	public @ResponseBody
 	Iterable<FilmActor>getAllFilmActors(){
 		return filmActorRepository.findAll();
@@ -165,7 +168,7 @@ public class RandomFilmSelector {
 
 	// Returns list of film ids by actor id - plan to use this to get film information
 	// SQL Query:
-	@GetMapping("/film/actor/{actorId}")
+	@GetMapping("/Film_By_Actor/{actorId}")
 	public ResponseEntity <List<FilmActor>> getFilmByActor(@PathVariable int actorId){
 		return new ResponseEntity<>(filmActorRepository.findByActorId(actorId),HttpStatus.OK);
 	}
