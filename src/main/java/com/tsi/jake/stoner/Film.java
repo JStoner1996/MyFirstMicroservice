@@ -1,4 +1,4 @@
-package com.tsi.jake.stoner.program;
+package com.tsi.jake.stoner;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

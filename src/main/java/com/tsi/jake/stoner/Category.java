@@ -1,34 +1,27 @@
-package com.tsi.jake.stoner.program;
+package com.tsi.jake.stoner;
 
 import javax.persistence.*;
 
 @Entity
-@Table(name="film_category")
-
-public class FilmCategory {
+@Table(name="category")
+public class Category {
 
     // Attributes
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int film_id;
     int category_id;
+    String name;
+
     // Constructor
 
-    public FilmCategory(int film_id, int category_id) {
-        this.film_id = film_id;
+    public Category(int category_id, String name){
         this.category_id = category_id;
+        this.name = name;
     }
 
-    public FilmCategory(){}
-
+    public Category(){}
     // Getters
-    public int getFilm_id() {
-        return film_id;
-    }
 
-    public void setFilm_id(int film_id) {
-        this.film_id = film_id;
-    }
 
     public int getCategory_id() {
         return category_id;
@@ -36,5 +29,13 @@ public class FilmCategory {
 
     public void setCategory_id(int category_id) {
         this.category_id = category_id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

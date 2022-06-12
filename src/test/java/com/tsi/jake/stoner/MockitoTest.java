@@ -1,4 +1,4 @@
-package com.tsi.jake.stoner.program;
+package com.tsi.jake.stoner;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;

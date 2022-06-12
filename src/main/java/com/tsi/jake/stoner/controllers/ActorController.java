@@ -1,7 +1,7 @@
-package com.tsi.jake.stoner.program.controllers;
+package com.tsi.jake.stoner.controllers;
 
-import com.tsi.jake.stoner.program.Actor;
-import com.tsi.jake.stoner.program.ActorRepository;
+import com.tsi.jake.stoner.Actor;
+import com.tsi.jake.stoner.ActorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.web.bind.annotation.*;

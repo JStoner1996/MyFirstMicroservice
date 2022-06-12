@@ -1,4 +1,4 @@
-package com.tsi.jake.stoner.program;
+package com.tsi.jake.stoner;
 
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;

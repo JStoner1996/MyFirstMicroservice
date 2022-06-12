@@ -1,4 +1,4 @@
-package com.tsi.jake.stoner.program;
+package com.tsi.jake.stoner;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
