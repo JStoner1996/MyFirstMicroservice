@@ -18,7 +18,7 @@ import static org.mockito.Mockito.*;
 
     // @Mock - States that the object will be mock data
     @Mock
-    private RandomFilmSelector randomFilmSelector;
+    private MyFirstMicroserviceApplication myFirstMicroserviceApplication;
 
     @Mock
     private ActorRepository actorRepository;
@@ -51,20 +51,20 @@ import static org.mockito.Mockito.*;
         filmActorRepository= mock(FilmActorRepository.class);
         categoryRepository= mock(CategoryRepository.class);
         languageRepository = mock(LanguageRepository.class);
-        randomFilmSelector = new RandomFilmSelector(actorRepository, filmRepository, filmCategoryRepository, filmActorRepository,categoryRepository, languageRepository);
+        myFirstMicroserviceApplication = new MyFirstMicroserviceApplication(actorRepository, filmRepository, filmCategoryRepository, filmActorRepository,categoryRepository, languageRepository);
     }
 
     // ---------------------Actors--------------------- //
 
     @Test
      void getAllActors(){
-        randomFilmSelector.getAllActors();
+        myFirstMicroserviceApplication.getAllActors();
         verify(actorRepository).findAll();
 
     }
     @Test
      void testAddActor(){
-        Actual = randomFilmSelector.addActor(newActor.getFirst_name(), newActor.getLast_name());
+        Actual = myFirstMicroserviceApplication.addActor(newActor.getFirst_name(), newActor.getLast_name());
         ArgumentCaptor<Actor> actorArgumentCaptor = ArgumentCaptor.forClass(Actor.class); //Allows you to capture arguments passed to a method in this case, its catching the Actor class
         verify(actorRepository).save(actorArgumentCaptor.capture()); // Verify checks to make sure the method has run
         actorArgumentCaptor.getValue(); // From my understanding, it would get the last value added to the actorArgumentCaptor, in this case the Actor class
@@ -99,31 +99,31 @@ import static org.mockito.Mockito.*;
     @Test
      void getFilmByKeyword(){
         String keyword = "Data";
-        randomFilmSelector.getFilmByKeyword(keyword);
+        myFirstMicroserviceApplication.getFilmByKeyword(keyword);
         verify(filmRepository).findByTitleLikeOrDescriptionLike("%"+ keyword + "%", "%" + keyword + "%");
     }
 
     @Test
      void getFilmByActor(){
-        randomFilmSelector.getFilmByActor(1);
+        myFirstMicroserviceApplication.getFilmByActor(1);
         verify(filmActorRepository).findByActorId(1);
     }
     @Test
      void getAllFilms(){
         List<Film> filmList = new ArrayList<>();
         filmList.add(testFilm);
-        when(randomFilmSelector.getAllFilms()).thenReturn(filmList);
-        Assertions.assertEquals(filmList, randomFilmSelector.getAllFilms());
+        when(myFirstMicroserviceApplication.getAllFilms()).thenReturn(filmList);
+        Assertions.assertEquals(filmList, myFirstMicroserviceApplication.getAllFilms());
     }
 
     @Test
      void getAllFilmCategories(){
-        randomFilmSelector.getAllFilmCategories();
+        myFirstMicroserviceApplication.getAllFilmCategories();
         verify(filmCategoryRepository).findAll();
     }
     @Test
      void getAllCategories(){
-        randomFilmSelector.getAllCategories();
+        myFirstMicroserviceApplication.getAllCategories();
         verify(categoryRepository).findAll();
     }
 
@@ -136,7 +136,7 @@ import static org.mockito.Mockito.*;
     // ---------------------Languages--------------------- //
     @Test
      void getAllLanguages(){
-        randomFilmSelector.getAllLanguages();
+        myFirstMicroserviceApplication.getAllLanguages();
         verify(languageRepository).findAll();
     }
 }
