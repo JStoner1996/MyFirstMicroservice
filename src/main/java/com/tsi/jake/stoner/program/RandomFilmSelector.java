@@ -15,12 +15,11 @@ import java.util.Optional;
 
 @SpringBootApplication
 @RestController // Handles GET, POST, DELETE, PUT requests
-@RequestMapping("/home") //base url,  so url would be: localhost:8080/home/{Mapping}
+@RequestMapping("/filmRandomizer") //base url,  so url would be: localhost:8080/home/{Mapping}
 
 
 
-public class MyFirstMicroserviceApplication {
-	String TestSmells = "Smells";
+public class RandomFilmSelector {
 	//@Autowired - To my understanding links together classes to the database
 	@Autowired
 	private ActorRepository actorRepository;
@@ -40,10 +39,10 @@ public class MyFirstMicroserviceApplication {
 	static final String DOES_NOT_EXIST = " does not exist";
 
 	public static void main(String[] args) {
-		SpringApplication.run(MyFirstMicroserviceApplication.class, args);
+		SpringApplication.run(RandomFilmSelector.class, args);
 	}
 
-	public MyFirstMicroserviceApplication(
+	public RandomFilmSelector(
 			ActorRepository actorRepository,
 			FilmRepository filmRepository,
 			FilmCategoryRepository filmCategoryRepository,
@@ -69,22 +68,22 @@ public class MyFirstMicroserviceApplication {
 	// ---------------------Actors---------------------
 
 	// Gets all actors
-	@GetMapping("/All_Actors")
+	@GetMapping("/actor/actors")
 	public @ResponseBody
 	Iterable<Actor>getAllActors(){
 		return actorRepository.findAll();
 	}
 
 	// Gets actor by id
-	@GetMapping("/Actor_By_ID/{actor_id}")
+	@GetMapping("/actor/{actor_id}")
 	public @ResponseBody Optional<Actor> getActorById (@PathVariable int actor_id){
-	if (actorRepository.existsById(actor_id)){
-		return actorRepository.findById(actor_id);
-	} else throw new ResourceNotFoundException(ACTOR_STRING + actor_id + DOES_NOT_EXIST);
+		if (actorRepository.existsById(actor_id)){
+			return actorRepository.findById(actor_id);
+		} else throw new ResourceNotFoundException(ACTOR_STRING + actor_id + DOES_NOT_EXIST);
 	}
 
 	// Adds Actor
-	@PostMapping("/Add_Actor")
+	@PostMapping("/actor/add")
 	public @ResponseBody String addActor (@RequestParam String first_name, @RequestParam String last_name){
 		Actor addActor = new Actor(first_name, last_name);
 		actorRepository.save(addActor);
@@ -93,7 +92,7 @@ public class MyFirstMicroserviceApplication {
 
 
 	// Deletes actor with a message if actor not found
-	@DeleteMapping("/Delete_Actor_By_ID")
+	@DeleteMapping("/actor/delete")
 	public @ResponseBody String removeActorByID (@RequestParam int actor_id){
 
 		if (actorRepository.existsById(actor_id)){
@@ -117,28 +116,28 @@ public class MyFirstMicroserviceApplication {
 
 	// ---------------------Films---------------------
 	// Returns a list of all films
-	@GetMapping("/All_Films")
+	@GetMapping("/film/films")
 	public @ResponseBody
 	Iterable<Film>getAllFilms(){
 		return filmRepository.findAll();
 	}
 
 	// Returns a list of all film ids their category ids
-	@GetMapping("/All_FilmCategories")
+	@GetMapping("/film/filmCategories")
 	public @ResponseBody
 	Iterable<FilmCategory>getAllFilmCategories(){
 		return filmCategoryRepository.findAll();
 	}
 
 	// Returns a list of all categories and their ids
-	@GetMapping("/All_Categories")
+	@GetMapping("/film/categories")
 	public @ResponseBody
 	Iterable<Category>getAllCategories(){
 		return categoryRepository.findAll();
 	}
 
 	// returns a film's information by its ID
-	@GetMapping("/Film_By_ID/{film_id}")
+	@GetMapping("/film/{film_id}")
 	public @ResponseBody Optional<Film> getFilmById (@PathVariable int film_id){
 
 		if (filmRepository.existsById(film_id)){
@@ -150,7 +149,7 @@ public class MyFirstMicroserviceApplication {
 	// Returns a list of films that have the keyword
 	// SQL Query: SELECT * FROM sakila.film WHERE title LIKE '%{keyword}%' OR description LIKE '%{keyword}%’;
 	// NEED TO CHANGE TO ADD FILM_TEXT TABLE AND USE THAT INSTEAD!
-	@GetMapping("/Film_By_Keyword/{keyword}")
+	@GetMapping("/film/contains/{keyword}")
 	public ResponseEntity <List<Film>> getFilmByKeyword(@PathVariable String keyword){
 		// Used for the SQL query:
 		keyword = "%" + keyword + "%";
@@ -158,7 +157,7 @@ public class MyFirstMicroserviceApplication {
 	}
 
 	// Returns a list of actor id's and their film id's
-	@GetMapping("/All_Film_Actors")
+	@GetMapping("/film/actors")
 	public @ResponseBody
 	Iterable<FilmActor>getAllFilmActors(){
 		return filmActorRepository.findAll();
@@ -166,7 +165,7 @@ public class MyFirstMicroserviceApplication {
 
 	// Returns list of film ids by actor id - plan to use this to get film information
 	// SQL Query:
-	@GetMapping("/Film_By_Actor/{actorId}")
+	@GetMapping("/film/actor/{actorId}")
 	public ResponseEntity <List<FilmActor>> getFilmByActor(@PathVariable int actorId){
 		return new ResponseEntity<>(filmActorRepository.findByActorId(actorId),HttpStatus.OK);
 	}

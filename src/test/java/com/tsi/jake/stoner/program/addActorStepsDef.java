@@ -19,7 +19,7 @@ class addActorStepsDef {
 
     //Creates mock or fake data
     @Mock
-    private MyFirstMicroserviceApplication myFirstMicroserviceApplication;
+    private RandomFilmSelector randomFilmSelector;
 
     @Mock
     private ActorRepository actorRepository;
@@ -52,7 +52,7 @@ class addActorStepsDef {
         categoryRepository= mock(CategoryRepository.class);
         languageRepository = mock(LanguageRepository.class);
 
-        myFirstMicroserviceApplication = new MyFirstMicroserviceApplication(actorRepository, filmRepository, filmCategoryRepository, filmActorRepository, categoryRepository, languageRepository);
+        randomFilmSelector = new RandomFilmSelector(actorRepository, filmRepository, filmCategoryRepository, filmActorRepository, categoryRepository, languageRepository);
 
     }
 
@@ -67,7 +67,7 @@ class addActorStepsDef {
     @When("The information is inputted")
     public void the_information_is_inputted() {
         setup();
-    Actual = myFirstMicroserviceApplication.addActor(testActor.getFirst_name(), testActor.getLast_name());
+    Actual = randomFilmSelector.addActor(testActor.getFirst_name(), testActor.getLast_name());
     }
 
     @Then("I get a return string, confirming the success")
