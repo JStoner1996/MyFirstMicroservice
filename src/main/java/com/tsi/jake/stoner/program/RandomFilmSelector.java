@@ -280,8 +280,7 @@ public class RandomFilmSelector {
 
 	public int getLanguageIDByName (String name){
 		if (languageRepository.findByName(name)!= null){
-			int languageId = languageRepository.findByName(name).getLanguageId();
-			return languageId;
+			return languageRepository.findByName(name).getLanguageId();
 		} else throw new ResourceNotFoundException("Language: " + name + DOES_NOT_EXIST);
 	}
 	@GetMapping ("/film/randomByLength/{length}")
@@ -298,16 +297,4 @@ public class RandomFilmSelector {
 			return title + ": " + description;
 		} else return NO_MATCHING_FILM;
  	}
-	{
-
-	}
-
-
-
-
-
-
-
-
-
 }
