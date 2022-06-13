@@ -38,6 +38,9 @@ public class RandomFilmSelector {
 	static final String ACTOR_STRING = "Actor ";
 	static final String FILM_STRING = "Film ";
 	static final String DOES_NOT_EXIST = " does not exist";
+	static final String NO_MATCHING_FILM = "No films exist that match the search.";
+
+
 	Random rand = new Random();
 
 	public static void main(String[] args) {
@@ -193,10 +196,13 @@ public class RandomFilmSelector {
 
 		FilmCategory randomElement = filmCats.get(rand.nextInt(max));
 		Optional<Film> randomOptional = getFilmById(randomElement.getFilmId());
-		Film randomFilm= randomOptional.get();
-		String title = randomFilm.getTitle();
-		String description = randomFilm.getDescription();
-		return title + ": " + description;
+
+		if (randomOptional.isPresent()){
+			Film randomFilm = randomOptional.get();
+			String title = randomFilm.getTitle();
+			String description = randomFilm.getDescription();
+			return title + ": " + description;
+		} else return NO_MATCHING_FILM;
 	}
 
 	public List<FilmCategory> getCategoryIDByName (@PathVariable String name){
@@ -214,11 +220,12 @@ public class RandomFilmSelector {
 		int max = filmActors.size();
 		FilmActor randomFilmActor = filmActors.get(rand.nextInt(max));
 		Optional<Film> randomOptional = getFilmById(randomFilmActor.getFilmId());
-
-		Film randomFilm = randomOptional.get();
-		String title = randomFilm.getTitle();
-		String description = randomFilm.getDescription();
-		return title + ": " + description;
+		if (randomOptional.isPresent()) {
+			Film randomFilm = randomOptional.get();
+			String title = randomFilm.getTitle();
+			String description = randomFilm.getDescription();
+			return title + ": " + description;
+		} else return NO_MATCHING_FILM;
 	}
 
 	@GetMapping ("/actor/name/{name}")

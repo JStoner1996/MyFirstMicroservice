@@ -10,12 +10,12 @@ public class Language {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     // Attributes
     @Column (name = "language_id")
-    int language_id;
+    int languageId;
     String name;
     // Constructor
 
-    public Language(int language_id, String name) {
-        this.language_id = language_id;
+    public Language(int languageId, String name) {
+        this.languageId = languageId;
         this.name = name;
     }
 
@@ -23,12 +23,12 @@ public class Language {
 
     // Getters & Setters
 
-    public int getLanguage_id() {
-        return language_id;
+    public int getLanguageId() {
+        return languageId;
     }
 
-    public void setLanguage_id(int language_id) {
-        this.language_id = language_id;
+    public void setLanguageId(int languageId) {
+        this.languageId = languageId;
     }
 
     public String getName() {
