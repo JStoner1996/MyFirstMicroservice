@@ -2,6 +2,8 @@ package com.tsi.jake.stoner.program;
 
 import org.springframework.data.repository.CrudRepository;
 
-public interface ActorRepository extends CrudRepository<Actor, Integer> {
+import java.util.List;
 
+public interface ActorRepository extends CrudRepository<Actor, Integer> {
+    List<Actor> findByFirstNameLikeOrLastNameLike(String firstName, String lastName);
 }

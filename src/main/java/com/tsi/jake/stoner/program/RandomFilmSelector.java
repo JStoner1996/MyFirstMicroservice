@@ -205,10 +205,36 @@ public class RandomFilmSelector {
 
 			return filmCategoryRepository.findByCategoryId(categoryId);
 		} else throw new ResourceNotFoundException("Category: " + name + DOES_NOT_EXIST);
-
 	}
 
 
+	@GetMapping ("/film/randomByActor/{name}")
+	public String getFilmByActorId (@PathVariable String name){
+		List <FilmActor> filmActors = getRandomActorId(name);
+		int max = filmActors.size();
+		FilmActor randomFilmActor = filmActors.get(rand.nextInt(max));
+		Optional<Film> randomOptional = getFilmById(randomFilmActor.getFilmId());
+
+		Film randomFilm = randomOptional.get();
+		String title = randomFilm.getTitle();
+		String description = randomFilm.getDescription();
+		return title + ": " + description;
+	}
+
+	@GetMapping ("/actor/name/{name}")
+	public List<Actor> getFilmByActorName(@PathVariable String name){
+		// Used for the SQL query:
+		name = "%" + name + "%";
+		return actorRepository.findByFirstNameLikeOrLastNameLike(name,  name);
+	}
+
+	public List<FilmActor> getRandomActorId (String name){
+		List<Actor> actors = getFilmByActorName(name);
+		int max = actors.size();
+		Actor randomActor = actors.get(rand.nextInt(max));
+		int actorId = randomActor.getActorId();
+		return filmActorRepository.findByActorId(actorId);
+	}
 
 
 
