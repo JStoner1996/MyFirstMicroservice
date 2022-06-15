@@ -210,22 +210,15 @@ public class RandomFilmSelector {
 	@GetMapping ("/film/randomByCategory/{name}")
 	public Film getFilmIdByCategory (@PathVariable String name){
 		List <FilmCategory> filmCategories = getCategoryIDByName(name);
-		int max = filmCategories.size();
-
-		FilmCategory randomElement = filmCategories.get(rand.nextInt(max));
-		Optional<Film> randomOptional = getFilmById(randomElement.getFilmId());
-
-		if (randomOptional.isPresent()){
-			Film randomFilm = randomOptional.get();
-			return randomFilm;
+		FilmCategory randomElement = filmCategories.get(rand.nextInt(filmCategories.size()));
+		if (getFilmById(randomElement.getFilmId()).isPresent()){
+			return getFilmById(randomElement.getFilmId()).get();
 		} else throw new ResourceNotFoundException(NO_MATCHING_FILM);
 	}
 
 	public List<FilmCategory> getCategoryIDByName (@PathVariable String name){
 		if (categoryRepository.findByName(name)!= null){
-			int categoryId = categoryRepository.findByName(name).getCategoryId();
-
-			return filmCategoryRepository.findByCategoryId(categoryId);
+			return filmCategoryRepository.findByCategoryId(categoryRepository.findByName(name).getCategoryId());
 		} else throw new ResourceNotFoundException("Category: " + name + DOES_NOT_EXIST);
 	}
 
@@ -234,24 +227,19 @@ public class RandomFilmSelector {
 	@GetMapping ("/film/randomByActor/{name}")
 	public Film getFilmByActorId (@PathVariable String name){
 		List <FilmActor> filmActors = getRandomActorId(name);
-		int max = filmActors.size();
-		FilmActor randomFilmActor = filmActors.get(rand.nextInt(max));
-		Optional<Film> randomOptional = getFilmById(randomFilmActor.getFilmId());
-		if (randomOptional.isPresent()) {
-			Film randomFilm = randomOptional.get();
-			return randomFilm;
+		FilmActor randomFilmActor = filmActors.get(rand.nextInt(filmActors.size()));
+		if (getFilmById(randomFilmActor.getFilmId()).isPresent()) {
+			return getFilmById(randomFilmActor.getFilmId()).get();
 		} else throw new ResourceNotFoundException(NO_MATCHING_FILM);
 	}
 
 	@GetMapping ("/actor/name/{name}")
 	public List<Actor> getFilmByActorName(@PathVariable String name){
-
 		return actorRepository.findByFirstNameLikeOrLastNameLike("%" + name + "%", "%" + name + "%");	// The % are Used for the SQL query
 	}
 
 	public List<FilmActor> getRandomActorId (String name){
-		List<Actor> actors = getFilmByActorName(name);
-		return filmActorRepository.findByActorId(actors.get(rand.nextInt(actors.size())).getActorId());
+		return filmActorRepository.findByActorId(getFilmByActorName(name).get(rand.nextInt(getFilmByActorName(name).size())).getActorId());
 	}
 
 
