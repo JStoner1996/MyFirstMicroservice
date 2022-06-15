@@ -245,17 +245,13 @@ public class RandomFilmSelector {
 
 	@GetMapping ("/actor/name/{name}")
 	public List<Actor> getFilmByActorName(@PathVariable String name){
-		// Used for the SQL query:
-		name = "%" + name + "%";
-		return actorRepository.findByFirstNameLikeOrLastNameLike(name,  name);
+
+		return actorRepository.findByFirstNameLikeOrLastNameLike("%" + name + "%", "%" + name + "%");	// The % are Used for the SQL query
 	}
 
 	public List<FilmActor> getRandomActorId (String name){
 		List<Actor> actors = getFilmByActorName(name);
-		int max = actors.size();
-		Actor randomActor = actors.get(rand.nextInt(max));
-		int actorId = randomActor.getActorId();
-		return filmActorRepository.findByActorId(actorId);
+		return filmActorRepository.findByActorId(actors.get(rand.nextInt(actors.size())).getActorId());
 	}
 
 
@@ -270,17 +266,13 @@ public class RandomFilmSelector {
 		return languageRepository.findAll();
 	}
 
-
 	// Random By Language
 	@GetMapping ("/film/randomByLanguage/{name}")
 	public Film getFilmByLanguage (@PathVariable String name){
 		List <Film> films = filmRepository.findByLanguageId(getLanguageIDByName(name));
-		int max = films.size();
 
-		Film randomFilm = films.get(rand.nextInt(max));
-
-		if (randomFilm != null){
-			return randomFilm;
+		if (films.get(rand.nextInt(films.size())) != null){
+			return films.get(rand.nextInt(films.size()));
 		} else throw new ResourceNotFoundException(NO_MATCHING_FILM);
 	}
 
@@ -293,12 +285,9 @@ public class RandomFilmSelector {
 	public Film getFilmByLength (@PathVariable int length){
 
 		List <Film> films = filmRepository.findByLength(length);
-		int max = films.size();
 
-		Film randomFilm = films.get(rand.nextInt(max));
-
-		if (randomFilm != null){
-			return randomFilm;
+		if (films.get(rand.nextInt(films.size())) != null){
+			return films.get(rand.nextInt(films.size()));
 		} else throw new ResourceNotFoundException(NO_MATCHING_FILM);
  	}
 }
