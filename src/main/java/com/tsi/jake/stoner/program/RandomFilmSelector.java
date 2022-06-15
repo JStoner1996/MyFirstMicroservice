@@ -17,7 +17,7 @@ import java.util.Random;
 @SpringBootApplication
 @RestController // Handles GET, POST, DELETE, PUT requests
 @RequestMapping("/filmRandomizer") //base url,  so url would be: localhost:8080/home/{Mapping}
-
+@CrossOrigin
 
 
 public class RandomFilmSelector {
@@ -34,6 +34,7 @@ public class RandomFilmSelector {
 	private CategoryRepository categoryRepository;
 	@Autowired
 	private LanguageRepository languageRepository;
+
 
 	static final String ACTOR_STRING = "Actor ";
 	static final String FILM_STRING = "Film ";
@@ -63,6 +64,7 @@ public class RandomFilmSelector {
 		this.languageRepository = languageRepository;
 	}
 
+
 	/*-----------------------------------------------------------
 	 					Mappings (CRUD)
 	@PostMapping - mapping HTTP 'POST' requests (CREATE)
@@ -70,9 +72,7 @@ public class RandomFilmSelector {
 	@PutMapping - mapping HTTP 'Put' requests (UPDATE)
 	@DeleteMapping - mapping HTTP 'Delete' requests (DELETE)
 	-----------------------------------------------------------*/
-	// ---------------------Actors---------------------
 
-	// Gets all actors
 	@GetMapping("/actor/actors")
 	public @ResponseBody
 	Iterable<Actor>getAllActors(){
@@ -84,6 +84,7 @@ public class RandomFilmSelector {
 	public @ResponseBody Optional<Actor> getActorById (@PathVariable int actor_id){
 		if (actorRepository.existsById(actor_id)){
 			return actorRepository.findById(actor_id);
+
 		} else throw new ResourceNotFoundException(ACTOR_STRING + actor_id + DOES_NOT_EXIST);
 	}
 
@@ -119,6 +120,7 @@ public class RandomFilmSelector {
 //			} else return ACTOR_STRING + actor_id + DOES_NOT_EXIST;
 //	}
 
+
 	// ---------------------Films---------------------
 	// Returns a list of all films
 	@GetMapping("/film/films")
@@ -153,18 +155,34 @@ public class RandomFilmSelector {
 
 	// Random by Keyword
 	@GetMapping("/film/randomByKeyword/{keyword}")
-	public String getRandomFilmByKeyword(@PathVariable String keyword){
+	public Film getRandomFilmByKeyword(@PathVariable String keyword){
 
 		// Used to get size of list
 		List<Film> filmsByWord = getFilmByKeyword(keyword);
 		int max = filmsByWord.size();
 
 		// Chooses a random element from this list and set's title and description to that of the random film
-		Film randomElement = filmsByWord.get(rand.nextInt(max));
-		String title = randomElement.getTitle();
-		String description = randomElement.getDescription();
-		return title + ": " + description;
+		Film randomFilm = filmsByWord.get(rand.nextInt(max));
+		if (randomFilm != null){
+			return randomFilm;
+		} else throw new ResourceNotFoundException(NO_MATCHING_FILM);
 	}
+//	// Random by Keyword String
+//	@GetMapping("/film/randomByKeyword/{keyword}")
+//	public String getRandomFilmByKeyword(@PathVariable String keyword){
+//
+//		// Used to get size of list
+//		List<Film> filmsByWord = getFilmByKeyword(keyword);
+//		int max = filmsByWord.size();
+//
+//		// Chooses a random element from this list and set's title and description to that of the random film
+//		Film randomElement = filmsByWord.get(rand.nextInt(max));
+//		String title = randomElement.getTitle();
+//		String description = randomElement.getDescription();
+//		return title + ": " + description;
+//	}
+
+
 
 	// Returns a list of films that have the keyword
 	public List<Film> getFilmByKeyword(String keyword){
@@ -190,19 +208,17 @@ public class RandomFilmSelector {
 
 	// Random By Category
 	@GetMapping ("/film/randomByCategory/{name}")
-	public String getFilmIdByCategory (@PathVariable String name){
-		List <FilmCategory> filmCats = getCategoryIDByName(name);
-		int max = filmCats.size();
+	public Film getFilmIdByCategory (@PathVariable String name){
+		List <FilmCategory> filmCategories = getCategoryIDByName(name);
+		int max = filmCategories.size();
 
-		FilmCategory randomElement = filmCats.get(rand.nextInt(max));
+		FilmCategory randomElement = filmCategories.get(rand.nextInt(max));
 		Optional<Film> randomOptional = getFilmById(randomElement.getFilmId());
 
 		if (randomOptional.isPresent()){
 			Film randomFilm = randomOptional.get();
-			String title = randomFilm.getTitle();
-			String description = randomFilm.getDescription();
-			return title + ": " + description;
-		} else return NO_MATCHING_FILM;
+			return randomFilm;
+		} else throw new ResourceNotFoundException(NO_MATCHING_FILM);
 	}
 
 	public List<FilmCategory> getCategoryIDByName (@PathVariable String name){
@@ -216,17 +232,15 @@ public class RandomFilmSelector {
 
 	// Random By Actor Name
 	@GetMapping ("/film/randomByActor/{name}")
-	public String getFilmByActorId (@PathVariable String name){
+	public Film getFilmByActorId (@PathVariable String name){
 		List <FilmActor> filmActors = getRandomActorId(name);
 		int max = filmActors.size();
 		FilmActor randomFilmActor = filmActors.get(rand.nextInt(max));
 		Optional<Film> randomOptional = getFilmById(randomFilmActor.getFilmId());
 		if (randomOptional.isPresent()) {
 			Film randomFilm = randomOptional.get();
-			String title = randomFilm.getTitle();
-			String description = randomFilm.getDescription();
-			return title + ": " + description;
-		} else return NO_MATCHING_FILM;
+			return randomFilm;
+		} else throw new ResourceNotFoundException(NO_MATCHING_FILM);
 	}
 
 	@GetMapping ("/actor/name/{name}")
@@ -247,12 +261,6 @@ public class RandomFilmSelector {
 
 
 
-
-
-
-
-
-
 	// ---------------------Languages---------------------
 
 	// Returns all languages
@@ -265,17 +273,15 @@ public class RandomFilmSelector {
 
 	// Random By Language
 	@GetMapping ("/film/randomByLanguage/{name}")
-	public String getFilmByLanguage (@PathVariable String name){
+	public Film getFilmByLanguage (@PathVariable String name){
 		List <Film> films = filmRepository.findByLanguageId(getLanguageIDByName(name));
 		int max = films.size();
 
 		Film randomFilm = films.get(rand.nextInt(max));
 
 		if (randomFilm != null){
-			String title = randomFilm.getTitle();
-			String description = randomFilm.getDescription();
-			return title + ": " + description;
-		} else return NO_MATCHING_FILM;
+			return randomFilm;
+		} else throw new ResourceNotFoundException(NO_MATCHING_FILM);
 	}
 
 	public int getLanguageIDByName (String name){
@@ -284,7 +290,7 @@ public class RandomFilmSelector {
 		} else throw new ResourceNotFoundException("Language: " + name + DOES_NOT_EXIST);
 	}
 	@GetMapping ("/film/randomByLength/{length}")
-	public String getFilmByLength (@PathVariable int length){
+	public Film getFilmByLength (@PathVariable int length){
 
 		List <Film> films = filmRepository.findByLength(length);
 		int max = films.size();
@@ -292,9 +298,7 @@ public class RandomFilmSelector {
 		Film randomFilm = films.get(rand.nextInt(max));
 
 		if (randomFilm != null){
-			String title = randomFilm.getTitle();
-			String description = randomFilm.getDescription();
-			return title + ": " + description;
-		} else return NO_MATCHING_FILM;
+			return randomFilm;
+		} else throw new ResourceNotFoundException(NO_MATCHING_FILM);
  	}
 }

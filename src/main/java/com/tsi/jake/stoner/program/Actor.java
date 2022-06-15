@@ -29,8 +29,7 @@ public class Actor {
         this.firstName = firstName;
         this.lastName = lastName;
     }
-    public Actor() {
-    }
+    public Actor() {}
 
     //Methods
 
