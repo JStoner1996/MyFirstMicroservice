@@ -17,7 +17,7 @@ import java.util.Random;
 @SpringBootApplication
 @RestController // Handles GET, POST, DELETE, PUT requests
 @RequestMapping("/filmRandomizer") //base url,  so url would be: localhost:8080/home/{Mapping}
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:3000") // for security
 
 
 public class RandomFilmSelector {
