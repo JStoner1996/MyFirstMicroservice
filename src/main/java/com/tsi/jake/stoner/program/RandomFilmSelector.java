@@ -209,14 +209,14 @@ public class RandomFilmSelector {
 	// Random By Category
 	@GetMapping ("/film/randomByCategory/{name}")
 	public Film getFilmIdByCategory (@PathVariable String name){
-		List <FilmCategory> filmCategories = getCategoryIDByName(name);
+		List <FilmCategory> filmCategories = getFilmsByCategoryName(name);
 		FilmCategory randomElement = filmCategories.get(rand.nextInt(filmCategories.size()));
 		if (getFilmById(randomElement.getFilmId()).isPresent()){
 			return getFilmById(randomElement.getFilmId()).get();
 		} else throw new ResourceNotFoundException(NO_MATCHING_FILM);
 	}
 
-	public List<FilmCategory> getCategoryIDByName (@PathVariable String name){
+	public List<FilmCategory> getFilmsByCategoryName(@PathVariable String name){
 		if (categoryRepository.findByName(name)!= null){
 			return filmCategoryRepository.findByCategoryId(categoryRepository.findByName(name).getCategoryId());
 		} else throw new ResourceNotFoundException("Category: " + name + DOES_NOT_EXIST);
@@ -248,7 +248,7 @@ public class RandomFilmSelector {
 	// ---------------------Languages---------------------
 
 	// Returns all languages
-	@GetMapping("/All_Languages")
+	@GetMapping("/allLanguages")
 	public @ResponseBody
 	Iterable<Language>getAllLanguages(){
 		return languageRepository.findAll();
