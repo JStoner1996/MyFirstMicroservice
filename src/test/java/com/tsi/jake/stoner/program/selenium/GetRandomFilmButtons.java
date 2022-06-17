@@ -3,9 +3,7 @@ package com.tsi.jake.stoner.program.selenium;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -25,14 +23,14 @@ public class GetRandomFilmButtons {
 
 
     // Creates new window for selenium to use before each test is ran
-    @BeforeEach
+    @Before
     public void setUp() {
         System.setProperty("webdriver.chrome.driver", "D:\\TSI\\SeleniumWebDriver\\chromedriver.exe");
         driver = new ChromeDriver();
     }
 
     // Closes the window after a test is run
-    @AfterEach
+    @After
     public void tearDown() {
         driver.quit();
     }
