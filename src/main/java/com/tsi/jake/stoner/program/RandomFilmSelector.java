@@ -17,7 +17,7 @@ import java.util.Random;
 @SpringBootApplication
 @RestController // Handles GET, POST, DELETE, PUT requests
 @RequestMapping("/filmRandomizer") //base url,  so url would be: localhost:8080/home/{Mapping}
-@CrossOrigin(origins = "http://localhost:3000") // for security
+@CrossOrigin
 
 
 public class RandomFilmSelector {
@@ -167,6 +167,7 @@ public class RandomFilmSelector {
 			return randomFilm;
 		} else throw new ResourceNotFoundException(NO_MATCHING_FILM);
 	}
+
 //	// Random by Keyword String
 //	@GetMapping("/film/randomByKeyword/{keyword}")
 //	public String getRandomFilmByKeyword(@PathVariable String keyword){
@@ -181,8 +182,6 @@ public class RandomFilmSelector {
 //		String description = randomElement.getDescription();
 //		return title + ": " + description;
 //	}
-
-
 
 	// Returns a list of films that have the keyword
 	public List<Film> getFilmByKeyword(String keyword){

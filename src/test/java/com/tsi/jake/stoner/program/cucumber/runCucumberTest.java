@@ -1,4 +1,4 @@
-package com.tsi.jake.stoner.program;
+package com.tsi.jake.stoner.program.cucumber;
 
 
 import io.cucumber.junit.Cucumber;
