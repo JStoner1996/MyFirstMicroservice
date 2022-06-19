@@ -5,21 +5,16 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
 
-import java.util.HashMap;
-import java.util.Map;
-
-public class GetRandomFilmButtons {
+public class GetRandomFilmButtonsTest {
     private WebDriver driver;
 
     String Expected;
     String Actual;
 
-    private String HOME_URL= "http://localhost:3000/";
+    private final String HOME_URL= "http://localhost:3000/";
 
 
     // Creates new window for selenium to use before each test is ran
