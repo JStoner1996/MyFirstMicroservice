@@ -13,44 +13,47 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 
 public class NavigationButtonsTest {
-    private WebDriver driver;
+//    private WebDriver driver;
+//
+//    String Expected;
+//    String Actual;
+//
+//    private final String  HOME_URL= "http://localhost:3000/";
+//
+//    @BeforeEach
+//    public void setUp() {
+//        System.setProperty("webdriver.chrome.driver", "D:\\TSI\\SeleniumWebDriver\\chromedriver.exe");
+//        driver = new ChromeDriver();
+//    }
+//
+//    @AfterEach
+//    public void tearDown() {
+//        driver.quit();
+//    }
+//
+//    // Uses parameterized tests instead of multiple tests, 1st Value is ID, 2nd is word used for URL Actual
+//    @ParameterizedTest
+//
+//    @CsvSource({
+//            "goToActorButton, Actor",
+//            "goToCategoryButton, Category",
+//            "goToKeywordButton, Keyword",
+//            "goToLanguageButton, Language",
+//            "goToLengthButton, Length"
+//    })
+//    void testNavButtons(String id, String word){
+//        driver.get("http://localhost:3000/");
+//
+//        driver.findElement(By.id(id)).click();
+//        String URL = driver.getCurrentUrl();
+//        Assertions.assertEquals(URL, HOME_URL + word, "Incorrect Page");
+//
+//        driver.quit();
+//
+//    }
 
-    String Expected;
-    String Actual;
-
-    private final String  HOME_URL= "http://localhost:3000/";
 
 
-    @BeforeEach
-    public void setUp() {
-        System.setProperty("webdriver.chrome.driver", "D:\\TSI\\SeleniumWebDriver\\chromedriver.exe");
-        driver = new ChromeDriver();
-    }
-
-    @AfterEach
-    public void tearDown() {
-        driver.quit();
-    }
-
-    // Uses parameterized tests instead of multiple tests, 1st Value is ID, 2nd is word used for URL Actual
-    @ParameterizedTest
-    @CsvSource({
-            "goToActorButton, Actor",
-            "goToCategoryButton, Category",
-            "goToKeywordButton, Keyword",
-            "goToLanguageButton, Language",
-            "goToLengthButton, Length"
-    })
-    void testNavButtons(String id, String word){
-        driver.get("http://localhost:3000/");
-
-        driver.findElement(By.id(id)).click();
-        String URL = driver.getCurrentUrl();
-        Assertions.assertEquals(URL, HOME_URL + word, "Incorrect Page");
-
-        driver.quit();
-
-    }
 //
 //    @Test
 //    public void testActorNav() {
