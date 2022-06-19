@@ -3,6 +3,8 @@ package com.tsi.jake.stoner.program.cucumber;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -18,19 +20,22 @@ public class getRandomFilmByCategoryStepsDef {
 
     String [] categories = {"Action", "Animation", "Children", "Classics", "Comedy", "Documentary", "Drama", "Family", "Foreign", "Games", "Horror", "Music", "New", "Sci-Fi", "Sports", "Travel" };
 
-    @Given("Chrome is open and the application is running")
-    public void chrome_is_open_and_the_application_is_running() {
+    // Closes the window after a test is run
+
+
+    @Given("The application is running")
+    public void the_application_is_running() {
         System.setProperty("webdriver.chrome.driver", "D:\\TSI\\SeleniumWebDriver\\chromedriver.exe");
         driver = new ChromeDriver();
+
+    }
+
+    // and
+    @When("the category page is open")
+    public void the_category_page_is_open() {
         driver.get("http://localhost:3000/Category");
     }
 
-    @When("A button is clicked")
-    public void A_button_is_clicked() {
-        for (int i = 0; i < categories.length; i++) {
-            driver.findElement(By.id("randomBy" + categories[i])).click();
-        }
-    }
 
     // WIP: Instead of manually writing each category name, get a list from the front end, get each element in that list, and use the text inside that element
 //    List<WebElement> categoriesList = driver.findElements(By.id("categories"));
@@ -39,12 +44,19 @@ public class getRandomFilmByCategoryStepsDef {
 //    }
 
 
+    @Then("A button is clicked to display a random film title and description")
+    public void a_button_is_clicked_to_display_a_random_film_title_and_description() {
 
-    @Then("Display random film title and description")
-    public void display_random_film_title_and_description() {
-        String Actual = driver.findElement(By.id("randomFilm")).getText();
         String Expected = "Your Random Film will be displayed here!";
-        Assertions.assertNotEquals(Expected, Actual, "randomFilm text not changed");
+        // loops through array of catergories and
+        for (int i = 0; i < categories.length; i++) {
+            driver.navigate().refresh(); // Refresh page to reset text
+            driver.findElement(By.id("randomBy" + categories[i])).click(); // clicks certain button
+
+            String Actual = driver.findElement(By.id("randomFilm")).getText();
+            Assertions.assertNotEquals(Expected, Actual, "randomFilm text not changed");
+        }
+
         driver.quit();
     }
 }
