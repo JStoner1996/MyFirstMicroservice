@@ -11,6 +11,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
+import java.time.Duration;
 import java.util.List;
 
 public class getRandomFilmByCategoryStepsDef {
@@ -51,10 +52,16 @@ public class getRandomFilmByCategoryStepsDef {
         // loops through array of catergories and
         for (int i = 0; i < categories.length; i++) {
             driver.navigate().refresh(); // Refresh page to reset text
+
             driver.findElement(By.id("randomBy" + categories[i])).click(); // clicks certain button
+            //Expected = driver.findElement(By.id(""));
+
+            driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 
             String Actual = driver.findElement(By.id("randomFilm")).getText();
             Assertions.assertNotEquals(Expected, Actual, "randomFilm text not changed");
+
+
         }
 
         driver.quit();

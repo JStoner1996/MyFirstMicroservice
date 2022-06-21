@@ -21,6 +21,7 @@ import java.util.Random;
 
 
 public class RandomFilmSelector {
+
 	//@Autowired - To my understanding links together classes to the database
 	@Autowired
 	private ActorRepository actorRepository;
@@ -35,14 +36,12 @@ public class RandomFilmSelector {
 	@Autowired
 	private LanguageRepository languageRepository;
 
+	public Random random = new Random();
 
 	static final String ACTOR_STRING = "Actor ";
 	static final String FILM_STRING = "Film ";
 	static final String DOES_NOT_EXIST = " does not exist";
 	static final String NO_MATCHING_FILM = "No films exist that match the search.";
-
-
-	Random rand = new Random();
 
 	public static void main(String[] args) {
 		SpringApplication.run(RandomFilmSelector.class, args);
@@ -54,7 +53,8 @@ public class RandomFilmSelector {
 			FilmCategoryRepository filmCategoryRepository,
 			FilmActorRepository filmActorRepository,
 			CategoryRepository categoryRepository,
-			LanguageRepository languageRepository){
+			LanguageRepository languageRepository
+			){
 
 		this.actorRepository = actorRepository;
 		this.filmRepository = filmRepository;
@@ -62,6 +62,7 @@ public class RandomFilmSelector {
 		this.filmActorRepository = filmActorRepository;
 		this.categoryRepository = categoryRepository;
 		this.languageRepository = languageRepository;
+		this.random = random;
 	}
 
 
@@ -157,12 +158,13 @@ public class RandomFilmSelector {
 	@GetMapping("/film/randomByKeyword/{keyword}")
 	public Film getRandomFilmByKeyword(@PathVariable String keyword){
 
-		// Used to get size of list
+		// Creates a list of films that contain the keyword
 		List<Film> filmsByWord = getFilmByKeyword(keyword);
+		//  Used to get size of list, to set a max number
 		int max = filmsByWord.size();
 
 		// Chooses a random element from this list and set's title and description to that of the random film
-		Film randomFilm = filmsByWord.get(rand.nextInt(max));
+		Film randomFilm = filmsByWord.get(random.nextInt(max));
 		if (randomFilm != null){
 			return randomFilm;
 		} else throw new ResourceNotFoundException(NO_MATCHING_FILM);
@@ -209,7 +211,7 @@ public class RandomFilmSelector {
 	@GetMapping ("/film/randomByCategory/{name}")
 	public Film getFilmIdByCategory (@PathVariable String name){
 		List <FilmCategory> filmCategories = getFilmsByCategoryName(name);
-		FilmCategory randomElement = filmCategories.get(rand.nextInt(filmCategories.size()));
+		FilmCategory randomElement = filmCategories.get(random.nextInt(filmCategories.size()));
 		if (getFilmById(randomElement.getFilmId()).isPresent()){
 			return getFilmById(randomElement.getFilmId()).get();
 		} else throw new ResourceNotFoundException(NO_MATCHING_FILM);
@@ -226,7 +228,7 @@ public class RandomFilmSelector {
 	@GetMapping ("/film/randomByActor/{name}")
 	public Film getFilmByActorId (@PathVariable String name){
 		List <FilmActor> filmActors = getRandomActorId(name);
-		FilmActor randomFilmActor = filmActors.get(rand.nextInt(filmActors.size()));
+		FilmActor randomFilmActor = filmActors.get(random.nextInt(filmActors.size()));
 		if (getFilmById(randomFilmActor.getFilmId()).isPresent()) {
 			return getFilmById(randomFilmActor.getFilmId()).get();
 		} else throw new ResourceNotFoundException(NO_MATCHING_FILM);
@@ -238,7 +240,7 @@ public class RandomFilmSelector {
 	}
 
 	public List<FilmActor> getRandomActorId (String name){
-		return filmActorRepository.findByActorId(getFilmByActorName(name).get(rand.nextInt(getFilmByActorName(name).size())).getActorId());
+		return filmActorRepository.findByActorId(getFilmByActorName(name).get(random.nextInt(getFilmByActorName(name).size())).getActorId());
 	}
 
 
@@ -258,8 +260,8 @@ public class RandomFilmSelector {
 	public Film getFilmByLanguage (@PathVariable String name){
 		List <Film> films = filmRepository.findByLanguageId(getLanguageIDByName(name));
 
-		if (films.get(rand.nextInt(films.size())) != null){
-			return films.get(rand.nextInt(films.size()));
+		if (films.get(random.nextInt(films.size())) != null){
+			return films.get(random.nextInt(films.size()));
 		} else throw new ResourceNotFoundException(NO_MATCHING_FILM);
 	}
 
@@ -273,8 +275,8 @@ public class RandomFilmSelector {
 
 		List <Film> films = filmRepository.findByLength(length);
 
-		if (films.get(rand.nextInt(films.size())) != null){
-			return films.get(rand.nextInt(films.size()));
+		if (films.get(random.nextInt(films.size())) != null){
+			return films.get(random.nextInt(films.size()));
 		} else throw new ResourceNotFoundException(NO_MATCHING_FILM);
  	}
 }

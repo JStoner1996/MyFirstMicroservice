@@ -1,15 +1,18 @@
-package com.tsi.jake.stoner.program;
+package com.tsi.jake.stoner.program.mockito;
 
+import com.tsi.jake.stoner.program.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import static org.mockito.Mockito.*;
 
@@ -17,7 +20,6 @@ import static org.mockito.Mockito.*;
  class MockitoTest {
 
     // @Mock - States that the object will be mock data
-    @Mock
     private RandomFilmSelector randomFilmSelector;
 
     @Mock
@@ -33,25 +35,34 @@ import static org.mockito.Mockito.*;
     @Mock
     private LanguageRepository languageRepository;
 
-    @Mock
-    Actor newActor = new Actor(1, "Tom", "Shanks");
-    @Mock
-    Film testFilm = new Film ("Chicken Run", "Chicken's Run", 150, 1);
+    private Random random;
 
+    @Mock
+    Actor newActor1 = new Actor(1, "Tom", "Shanks");
+    @Mock
+    Actor newActor2 = new Actor(2, "Tom", "Shanks");
+    @Mock
+    Film testFilm1 = new Film (1, "Chicken Run", "Chicken's Run", 150, 1);
+    @Mock
+    Film testFilm2 = new Film (2, "Shark's Tail", "Shark's Run", 150, 1);
+    @Mock
+    FilmCategory testFilmCategory1 = new FilmCategory (1, 1);
+   @Mock
+   FilmCategory testFilmCategory2 = new FilmCategory (2, 2);
+
+
+
+    @Mock Category testCategoryAction = new Category(1, "Action");
+    @Mock Category testCategoryAnimation = new Category(2, "Animation");
 
     //Used for Assertions
     String Expected;
     String Actual;
 
+
     // Ran before each Test, setting up mock repositories
     @BeforeEach
     void setUp(){
-        actorRepository= mock(ActorRepository.class);
-        filmRepository= mock(FilmRepository.class);
-        filmCategoryRepository= mock(FilmCategoryRepository.class);
-        filmActorRepository= mock(FilmActorRepository.class);
-        categoryRepository= mock(CategoryRepository.class);
-        languageRepository = mock(LanguageRepository.class);
         randomFilmSelector = new RandomFilmSelector(actorRepository, filmRepository, filmCategoryRepository, filmActorRepository,categoryRepository, languageRepository);
     }
 
@@ -65,44 +76,31 @@ import static org.mockito.Mockito.*;
     }
     @Test
      void testAddActor(){
-        Actual = randomFilmSelector.addActor(newActor.getFirstName(), newActor.getLastName());
+        Actual = randomFilmSelector.addActor(newActor1.getFirstName(), newActor1.getLastName());
         ArgumentCaptor<Actor> actorArgumentCaptor = ArgumentCaptor.forClass(Actor.class); //Allows you to capture arguments passed to a method in this case, its catching the Actor class
         verify(actorRepository).save(actorArgumentCaptor.capture()); // Verify checks to make sure the method has run
         actorArgumentCaptor.getValue(); // From my understanding, it would get the last value added to the actorArgumentCaptor, in this case the Actor class
         Expected = "Actor added.";
         Assertions.assertEquals(Expected, Actual, "Actor not saved in Database.");
     }
-//    @Test void testDeleteActor(){
-//
-//        when(myFirstMicroserviceApplication.removeActorByID((0)).
-//
-//
-//        Actual = myFirstMicroserviceApplication.removeActor(newActor.getActor_id());
-//        Expected = "Actor " + newActor.getActor_id() + " deleted.";
-//
-//        Assertions.assertEquals(Expected, Actual, "Actor " + newActor.getActor_id() + " still exists");
-//
-//
-//    }
 
-
-//    @Test void testUpdateActor(){
-//
-//        String expected = "Actor " + newActor.getActor_id() + " updated.";
-//        String Actual = myFirstMicroserviceApplication.updateActor(newActor.getActor_id(), "Steven", "Smith");
-//        when(newActor.getActor_id()).thenReturn(1);
-//        Assertions.assertEquals(expected, Actual, "Actor first name not updated");
-//
-//   }
 
     // ---------------------Films--------------------- //
 
-    @Test
-     void getFilmByKeyword(){
-        String keyword = "Data";
-        randomFilmSelector.getFilmByKeyword(keyword);
-        verify(filmRepository).findByTitleLikeOrDescriptionLike("%"+ keyword + "%", "%" + keyword + "%");
-    }
+//    @Test
+//     void testGetFilmByKeyword(){
+//        String keyword = "Chicken";
+//        List<Film> filmList = new ArrayList<>();
+//        filmList.add(testFilm1);
+//        filmList.add(testFilm2);
+//
+//        randomFilmSelector.getFilmByKeyword(keyword);
+//        verify(filmRepository).findByTitleLikeOrDescriptionLike("%"+ keyword + "%", "%" + keyword + "%");
+//        Expected = "Chicken Run";
+//        Film randomFilm = randomFilmSelector.getRandomFilmByKeyword(keyword);
+//        Actual = randomFilm.getTitle();
+//        Assertions.assertEquals(Expected, Actual, "Random by keyword, incorrect");
+//    }
 
     @Test
      void getFilmByActor(){
@@ -112,13 +110,14 @@ import static org.mockito.Mockito.*;
     @Test
      void getAllFilms(){
         List<Film> filmList = new ArrayList<>();
-        filmList.add(testFilm);
+        filmList.add(testFilm1);
         when(randomFilmSelector.getAllFilms()).thenReturn(filmList);
         Assertions.assertEquals(filmList, randomFilmSelector.getAllFilms());
     }
 
     @Test
      void getAllFilmCategories(){
+
         randomFilmSelector.getAllFilmCategories();
         verify(filmCategoryRepository).findAll();
     }
@@ -127,6 +126,17 @@ import static org.mockito.Mockito.*;
         randomFilmSelector.getAllCategories();
         verify(categoryRepository).findAll();
     }
+
+    @Test
+    public void testGetCategory (){
+
+       List<Category> categoryList = new ArrayList<>();
+       categoryList.add(testCategoryAction);
+       when(randomFilmSelector.getAllCategories()).thenReturn(categoryList);
+       Assertions.assertEquals(categoryList, randomFilmSelector.getAllCategories(), "Category has failed");
+    }
+
+
 
 //    @Test
 //     void getFilmById(){
