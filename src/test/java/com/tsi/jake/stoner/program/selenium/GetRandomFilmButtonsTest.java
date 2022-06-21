@@ -3,14 +3,16 @@ package com.tsi.jake.stoner.program.selenium;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import io.github.bonigarcia.wdm.WebDriverManager;
+
 
 public class GetRandomFilmButtonsTest {
-    private WebDriver driver;
 
+    WebDriver driver;
     String Expected;
     String Actual;
 
@@ -18,7 +20,7 @@ public class GetRandomFilmButtonsTest {
     // Creates new window for selenium to use before each test is ran
     @Before
     public void setUp() {
-        System.setProperty("webdriver.chrome.driver", "D:\\TSI\\SeleniumWebDriver\\chromedriver.exe");
+        WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
     }
 
