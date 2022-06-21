@@ -20,8 +20,9 @@ public class NavigationButtonsTest {
 
     @BeforeEach
     public void setUp() {
-        System.setProperty("webdriver.chrome.driver", "D:\\TSI\\SeleniumWebDriver\\chromedriver.exe");
         driver = new ChromeDriver();
+        System.setProperty("webdriver.chrome.driver", "D:\\TSI\\SeleniumWebDriver\\chromedriver.exe");
+
     }
 
     @AfterEach
