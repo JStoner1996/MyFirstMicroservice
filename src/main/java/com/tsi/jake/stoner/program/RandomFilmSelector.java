@@ -36,7 +36,7 @@ public class RandomFilmSelector {
 	@Autowired
 	private LanguageRepository languageRepository;
 
-	public Random random = new Random();
+	private Random random = new Random();
 
 	static final String ACTOR_STRING = "Actor ";
 	static final String FILM_STRING = "Film ";
@@ -62,7 +62,6 @@ public class RandomFilmSelector {
 		this.filmActorRepository = filmActorRepository;
 		this.categoryRepository = categoryRepository;
 		this.languageRepository = languageRepository;
-		this.random = random;
 	}
 
 
@@ -108,18 +107,18 @@ public class RandomFilmSelector {
 		} else throw new ResourceNotFoundException(ACTOR_STRING + actor_id + DOES_NOT_EXIST);
 	}
 
-	// Updates actor with new names
-//	@PutMapping ("/Update_Actor/{actor_id}")
-//	public @ResponseBody String updateActor(@PathVariable int actor_id, @RequestParam String first_name, @RequestParam String last_name){
-//
-//			if(actorRepository.existsById(actor_id)){
-//				Actor actor = actorRepository.findById(actor_id).get();
-//				actor.setFirst_name(first_name);
-//				actor.setLast_name(last_name);
-//				actorRepository.save(actor);
-//				return ACTOR_STRING + actor_id + " updated.";
-//			} else return ACTOR_STRING + actor_id + DOES_NOT_EXIST;
-//	}
+	 //Updates actor with new names
+	@PutMapping ("/updateActor/{actor_id}")
+	public @ResponseBody String updateActor(@PathVariable int actor_id, @RequestParam String first_name, @RequestParam String last_name){
+
+			if(actorRepository.existsById(actor_id)){
+				Actor actor = actorRepository.findById(actor_id).get();
+				actor.setFirstName(first_name);
+				actor.setLastName(last_name);
+				actorRepository.save(actor);
+				return ACTOR_STRING + actor_id + " updated.";
+			} else return ACTOR_STRING + actor_id + DOES_NOT_EXIST;
+	}
 
 
 	// ---------------------Films---------------------

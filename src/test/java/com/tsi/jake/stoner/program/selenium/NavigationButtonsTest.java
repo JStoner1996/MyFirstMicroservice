@@ -63,7 +63,6 @@ public class NavigationButtonsTest {
         Assertions.assertEquals(URL, HOME_URL + "Category", "Incorrect Page");
     }
 
-
     @Test
     public void testKeywordNav() {
         driver.get("http://localhost:3000/");

@@ -8,4 +8,5 @@ public interface FilmCategoryRepository extends CrudRepository<FilmCategory, Int
 
     List<FilmCategory> findByCategoryId (int categoryID);
 
+
 }

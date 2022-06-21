@@ -68,12 +68,7 @@ import static org.mockito.Mockito.*;
 
     // ---------------------Actors--------------------- //
 
-    @Test
-     void getAllActors(){
-        randomFilmSelector.getAllActors();
-        verify(actorRepository).findAll();
 
-    }
     @Test
      void testAddActor(){
         Actual = randomFilmSelector.addActor(newActor1.getFirstName(), newActor1.getLastName());
@@ -107,28 +102,9 @@ import static org.mockito.Mockito.*;
         randomFilmSelector.getFilmByActor(1);
         verify(filmActorRepository).findByActorId(1);
     }
-    @Test
-     void getAllFilms(){
-        List<Film> filmList = new ArrayList<>();
-        filmList.add(testFilm1);
-        when(randomFilmSelector.getAllFilms()).thenReturn(filmList);
-        Assertions.assertEquals(filmList, randomFilmSelector.getAllFilms());
-    }
 
     @Test
-     void getAllFilmCategories(){
-
-        randomFilmSelector.getAllFilmCategories();
-        verify(filmCategoryRepository).findAll();
-    }
-    @Test
-     void getAllCategories(){
-        randomFilmSelector.getAllCategories();
-        verify(categoryRepository).findAll();
-    }
-
-    @Test
-    public void testGetCategory (){
+    void testGetCategory (){
 
        List<Category> categoryList = new ArrayList<>();
        categoryList.add(testCategoryAction);
@@ -138,16 +114,6 @@ import static org.mockito.Mockito.*;
 
 
 
-//    @Test
-//     void getFilmById(){
-//        myFirstMicroserviceApplication.getFilmById(55);
-//        verify(filmRepository).findById(55);
-//    }
-
     // ---------------------Languages--------------------- //
-    @Test
-     void getAllLanguages(){
-        randomFilmSelector.getAllLanguages();
-        verify(languageRepository).findAll();
-    }
+
 }
