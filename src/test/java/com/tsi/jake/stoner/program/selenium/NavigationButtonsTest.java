@@ -1,6 +1,5 @@
 package com.tsi.jake.stoner.program.selenium;
 
-
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -10,8 +9,6 @@ import org.junit.jupiter.params.provider.CsvSource;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-
-
 
 public class NavigationButtonsTest {
     private WebDriver driver;
@@ -53,7 +50,6 @@ public class NavigationButtonsTest {
 //        }
 //        String URL = driver.getCurrentUrl();
 //        Assertions.assertEquals(URL, HOME_URL + word, "Incorrect Page");
-//
 //        driver.quit();
 //
 //    }
