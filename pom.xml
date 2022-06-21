@@ -15,10 +15,9 @@
   <name>randomFilmSelector</name>  
   <description>Demo project for Spring Boot</description>  
   <properties> 
-    <java.version>187</java.version>
+    <java.version>17</java.version>
     <sonar.organization>jstoner1996</sonar.organization>  
     <sonar.host.url>https://sonarcloud.io</sonar.host.url>
-    <maven.compiler.source>1.8</maven.compiler.source>
   </properties>  
   <dependencies> 
     <dependency> 
