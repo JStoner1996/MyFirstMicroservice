@@ -10,6 +10,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 import java.util.List;
@@ -48,20 +50,19 @@ public class getRandomFilmByCategoryStepsDef {
     @Then("A button is clicked to display a random film title and description")
     public void a_button_is_clicked_to_display_a_random_film_title_and_description() {
 
-        String Expected = "Your Random Film will be displayed here!";
+
         // loops through array of catergories and
         for (int i = 0; i < categories.length; i++) {
             driver.navigate().refresh(); // Refresh page to reset text
+            String Expected = driver.findElement(By.id("randomFilm")).getText();
 
             driver.findElement(By.id("randomBy" + categories[i])).click(); // clicks certain button
-            //Expected = driver.findElement(By.id(""));
 
-            driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+            wait.until(ExpectedConditions.invisibilityOfElementWithText(By.id("randomFilm"), Expected));
 
             String Actual = driver.findElement(By.id("randomFilm")).getText();
             Assertions.assertNotEquals(Expected, Actual, "randomFilm text not changed");
-
-
         }
 
         driver.quit();
