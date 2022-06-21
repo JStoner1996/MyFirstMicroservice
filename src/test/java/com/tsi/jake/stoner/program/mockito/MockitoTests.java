@@ -17,7 +17,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-public class MockitoTests {
+class MockitoTests {
 
     private RandomFilmSelector randomFilmSelector;
 

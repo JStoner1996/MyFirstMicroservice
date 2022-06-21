@@ -109,15 +109,15 @@ public class RandomFilmSelector {
 
 	 //Updates actor with new names
 	@PutMapping ("/updateActor/{actor_id}")
-	public @ResponseBody String updateActor(@PathVariable int actor_id, @RequestParam String first_name, @RequestParam String last_name){
+	public @ResponseBody String updateActor(@PathVariable int actorId, @RequestParam String firstName, @RequestParam String lastName){
 
-			if(actorRepository.existsById(actor_id)){
-				Actor actor = actorRepository.findById(actor_id).get();
-				actor.setFirstName(first_name);
-				actor.setLastName(last_name);
+			if(actorRepository.existsById(actorId)){
+				Actor actor = actorRepository.findById(actorId).get();
+				actor.setFirstName(firstName);
+				actor.setLastName(lastName);
 				actorRepository.save(actor);
-				return ACTOR_STRING + actor_id + " updated.";
-			} else return ACTOR_STRING + actor_id + DOES_NOT_EXIST;
+				return ACTOR_STRING + actorId + " updated.";
+			} else return ACTOR_STRING + actorId + DOES_NOT_EXIST;
 	}
 
 
