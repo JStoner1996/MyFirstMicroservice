@@ -15,8 +15,6 @@ public class GetRandomFilmButtonsTest {
     String Actual;
 
     private final String HOME_URL= "http://localhost:3000/";
-
-
     // Creates new window for selenium to use before each test is ran
     @Before
     public void setUp() {
