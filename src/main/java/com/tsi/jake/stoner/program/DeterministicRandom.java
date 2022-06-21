@@ -2,7 +2,7 @@ package com.tsi.jake.stoner.program;
 
 import java.util.Random;
 
-// FOR TESTING PURPOSES ONLY
+// FOR TESTING PURPOSES ONLY!
 
 public class DeterministicRandom extends Random {
 
