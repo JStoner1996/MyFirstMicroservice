@@ -6,6 +6,7 @@ import org.junit.Before;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -17,14 +18,14 @@ public class NavigationButtonsTest {
 
     private final String HOME_URL= "http://localhost:3000/";
     // Creates new window for selenium to use before each test is run
-    @BeforeEach
+    @Before
     public void setUp() {
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
     }
 
     // Closes the window after a test is run
-    @AfterEach
+    @After
     public void tearDown() {
         driver.quit();
     }
@@ -46,7 +47,6 @@ public class NavigationButtonsTest {
 //        Assertions.assertEquals(URL, HOME_URL + word, "Incorrect Page");
 //        driver.quit();
 //    }
-
 
     @Test
     public void testActorNav() {
