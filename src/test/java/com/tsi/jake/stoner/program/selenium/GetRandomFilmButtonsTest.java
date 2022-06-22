@@ -24,7 +24,7 @@ public class GetRandomFilmButtonsTest {
 //    String Actual;
 //
 //    private final String HOME_URL= "http://localhost:3000/";
-//    // Creates new window for selenium to use before each test is ran
+    // Creates new window for selenium to use before each test is ran
 //    @BeforeEach
 //    public void setUp() {
 ////        WebDriverManager.chromedriver().setup();
@@ -34,7 +34,7 @@ public class GetRandomFilmButtonsTest {
 //    // Closes the window after a test is run
 //    @AfterEach
 //    public void tearDown() {
-////        driver.quit();
+//        driver.quit();
 //    }
 //
 //    //Tests that each button can be clicked
@@ -61,7 +61,6 @@ public class GetRandomFilmButtonsTest {
 //
 //        Actual = driver.findElement(By.id("randomFilm")).getText();
 //        Assertions.assertNotEquals(Expected, Actual, id2 + " has failed.");
-
-//}
-
+//
+//    }
 }

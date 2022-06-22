@@ -20,9 +20,9 @@ import java.time.Duration;
 
 public class getRandomFilmByCategoryStepsDef {
 
-    private WebDriver driver;
-    private String Expected;
-    private String Actual;
+//    private WebDriver driver;
+//    private String Expected;
+//    private String Actual;
 
     // Closes the window after a test is run
 
@@ -34,9 +34,9 @@ public class getRandomFilmByCategoryStepsDef {
     }
 
     @When("the {string} page is open")
-//    public void the_category_page_is_open(String page) {
+    public void the_category_page_is_open(String page) {
 //        driver.get("http://localhost:3000/" + page);
-//    }
+    }
 
     @And ("The {string} button is clicked")
     public void the_category_button_is_clicked(String button) {
@@ -54,7 +54,7 @@ public class getRandomFilmByCategoryStepsDef {
 
     @Then("display a random film title and description")
     public void display_a_random_film_title_and_description() {
-//
+
 //        Assertions.assertNotEquals(Expected, Actual, "randomFilm text not changed");
 //        driver.quit();
     }
