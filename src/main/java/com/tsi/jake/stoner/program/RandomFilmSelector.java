@@ -72,7 +72,6 @@ public class RandomFilmSelector {
 	@PutMapping - mapping HTTP 'Put' requests (UPDATE)
 	@DeleteMapping - mapping HTTP 'Delete' requests (DELETE)
 	-----------------------------------------------------------*/
-
 	@GetMapping("/actor/actors")
 	public @ResponseBody
 	Iterable<Actor>getAllActors(){
@@ -80,21 +79,21 @@ public class RandomFilmSelector {
 	}
 
 	// Gets actor by id
-	@GetMapping("/actor/{actor_id}")
-	public @ResponseBody Optional<Actor> getActorById (@PathVariable int actor_id){
-		if (actorRepository.existsById(actor_id)){
-			return actorRepository.findById(actor_id);
-
-		} else throw new ResourceNotFoundException(ACTOR_STRING + actor_id + DOES_NOT_EXIST);
-	}
+	//@GetMapping("/actor/{actor_id}")
+//	public @ResponseBody Optional<Actor> getActorById (@PathVariable int actor_id){
+//		if (actorRepository.existsById(actor_id)){
+//			return actorRepository.findById(actor_id);
+//
+//		} else throw new ResourceNotFoundException(ACTOR_STRING + actor_id + DOES_NOT_EXIST);
+//	}
 
 	// Adds Actor
-	@PostMapping("/actor/add")
-	public @ResponseBody String addActor (@RequestParam String first_name, @RequestParam String last_name){
-		Actor addActor = new Actor(first_name, last_name);
-		actorRepository.save(addActor);
-		return ACTOR_STRING +  "added.";
-	}
+	//@PostMapping("/actor/add")
+//	public @ResponseBody String addActor (@RequestParam String first_name, @RequestParam String last_name){
+//		Actor addActor = new Actor(first_name, last_name);
+//		actorRepository.save(addActor);
+//		return ACTOR_STRING +  "added.";
+//	}
 
 
 	// Deletes actor with a message if actor not found
@@ -123,34 +122,30 @@ public class RandomFilmSelector {
 
 	// ---------------------Films---------------------
 	// Returns a list of all films
-	@GetMapping("/film/films")
+	//@GetMapping("/film/films")
 	public @ResponseBody
 	Iterable<Film>getAllFilms(){
 		return filmRepository.findAll();
 	}
 
 	// Returns a list of all film ids their category ids
-	@GetMapping("/film/filmCategories")
+	//@GetMapping("/film/filmCategories")
 	public @ResponseBody
 	Iterable<FilmCategory>getAllFilmCategories(){
 		return filmCategoryRepository.findAll();
 	}
 
 	// Returns a list of all categories and their ids
-	@GetMapping("/film/categories")
+	//@GetMapping("/film/categories")
 	public @ResponseBody
 	Iterable<Category>getAllCategories(){
 		return categoryRepository.findAll();
 	}
 
 	// returns a film's information by its ID
-	@GetMapping("/film/{film_id}")
-	public @ResponseBody Optional<Film> getFilmById (@PathVariable int film_id){
-
-		if (filmRepository.existsById(film_id)){
-			return filmRepository.findById(film_id);
-		} else throw new ResourceNotFoundException(FILM_STRING + film_id + DOES_NOT_EXIST);
-
+	//@GetMapping("/film/{filmId}")
+	public @ResponseBody Optional<Film> getFilmById (@PathVariable int filmId){
+			return filmRepository.findById(filmId);
 	}
 
 	// Random by Keyword
@@ -162,27 +157,10 @@ public class RandomFilmSelector {
 		//  Used to get size of list, to set a max number
 		int max = filmsByWord.size();
 
-		// Chooses a random element from this list and set's title and description to that of the random film
-		Film randomFilm = filmsByWord.get(random.nextInt(max));
-		if (randomFilm != null){
-			return randomFilm;
-		} else throw new ResourceNotFoundException(NO_MATCHING_FILM);
+		// Chooses a random element from this list and returns it
+		return filmsByWord.get(random.nextInt(max));
+//
 	}
-
-//	// Random by Keyword String
-//	@GetMapping("/film/randomByKeyword/{keyword}")
-//	public String getRandomFilmByKeyword(@PathVariable String keyword){
-//
-//		// Used to get size of list
-//		List<Film> filmsByWord = getFilmByKeyword(keyword);
-//		int max = filmsByWord.size();
-//
-//		// Chooses a random element from this list and set's title and description to that of the random film
-//		Film randomElement = filmsByWord.get(rand.nextInt(max));
-//		String title = randomElement.getTitle();
-//		String description = randomElement.getDescription();
-//		return title + ": " + description;
-//	}
 
 	// Returns a list of films that have the keyword
 	public List<Film> getFilmByKeyword(String keyword){
@@ -192,7 +170,7 @@ public class RandomFilmSelector {
 	}
 
 	// Returns a list of actor id's and their film id's
-	@GetMapping("/film/actors")
+	//@GetMapping("/film/actors")
 	public @ResponseBody
 	Iterable<FilmActor>getAllFilmActors(){
 		return filmActorRepository.findAll();
@@ -200,7 +178,7 @@ public class RandomFilmSelector {
 
 	// Returns list of film ids by actor id - plan to use this to get film information
 	// SQL Query:
-	@GetMapping("/film/actor/{actorId}")
+	//@GetMapping("/film/actor/{actorId}")
 	public ResponseEntity <List<FilmActor>> getFilmByActor(@PathVariable int actorId){
 		return new ResponseEntity<>(filmActorRepository.findByActorId(actorId),HttpStatus.OK);
 	}
@@ -208,7 +186,7 @@ public class RandomFilmSelector {
 
 	// Random By Category
 	@GetMapping ("/film/randomByCategory/{name}")
-	public Film getFilmIdByCategory (@PathVariable String name){
+	public Film getRandomFilmByCategory (@PathVariable String name){
 		List <FilmCategory> filmCategories = getFilmsByCategoryName(name);
 		FilmCategory randomElement = filmCategories.get(random.nextInt(filmCategories.size()));
 		if (getFilmById(randomElement.getFilmId()).isPresent()){
@@ -217,15 +195,13 @@ public class RandomFilmSelector {
 	}
 
 	public List<FilmCategory> getFilmsByCategoryName(@PathVariable String name){
-		if (categoryRepository.findByName(name)!= null){
 			return filmCategoryRepository.findByCategoryId(categoryRepository.findByName(name).getCategoryId());
-		} else throw new ResourceNotFoundException("Category: " + name + DOES_NOT_EXIST);
 	}
 
 
 	// Random By Actor Name
 	@GetMapping ("/film/randomByActor/{name}")
-	public Film getFilmByActorId (@PathVariable String name){
+	public Film getRandomFilmByActor (@PathVariable String name){
 		List <FilmActor> filmActors = getRandomActorId(name);
 		FilmActor randomFilmActor = filmActors.get(random.nextInt(filmActors.size()));
 		if (getFilmById(randomFilmActor.getFilmId()).isPresent()) {
@@ -256,7 +232,7 @@ public class RandomFilmSelector {
 
 	// Random By Language
 	@GetMapping ("/film/randomByLanguage/{name}")
-	public Film getFilmByLanguage (@PathVariable String name){
+	public Film getRandomFilmByLanguage (@PathVariable String name){
 		List <Film> films = filmRepository.findByLanguageId(getLanguageIDByName(name));
 
 		if (films.get(random.nextInt(films.size())) != null){
@@ -270,12 +246,12 @@ public class RandomFilmSelector {
 		} else throw new ResourceNotFoundException("Language: " + name + DOES_NOT_EXIST);
 	}
 	@GetMapping ("/film/randomByLength/{length}")
-	public Film getFilmByLength (@PathVariable int length){
+	public Film getRandomFilmByLength (@PathVariable int length){
 
 		List <Film> films = filmRepository.findByLength(length);
 
-		if (films.get(random.nextInt(films.size())) != null){
+		//if (films.get(random.nextInt(films.size())) != null){
 			return films.get(random.nextInt(films.size()));
-		} else throw new ResourceNotFoundException(NO_MATCHING_FILM);
+		//} else throw new ResourceNotFoundException(NO_MATCHING_FILM);
  	}
 }

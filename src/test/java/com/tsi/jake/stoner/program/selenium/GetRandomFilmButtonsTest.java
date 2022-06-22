@@ -55,4 +55,12 @@ public class GetRandomFilmButtonsTest {
         Assertions.assertEquals(URL, HOME_URL, "Incorrect Page");
 
     }
+
+    @Test
+    public void testRandomFilmByActor () {
+        driver.get("http://localhost:3000/Actor");
+
+        driver.findElement(By.id("actorName")).sendKeys("bob");
+        driver.findElement(By.id("randomByActor")).click();
+    }
 }

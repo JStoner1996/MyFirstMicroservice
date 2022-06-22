@@ -21,7 +21,6 @@ import java.time.Duration;
 public class getRandomFilmByCategoryStepsDef {
 
     private WebDriver driver;
-    private String HOME_URL= "http://localhost:3000/";
     private String Expected;
     private String Actual;
 
@@ -41,7 +40,6 @@ public class getRandomFilmByCategoryStepsDef {
 
     @And ("The {string} button is clicked")
     public void the_button_is_clicked(String category) {
-        System.out.println(category);
         Expected = driver.findElement(By.id("randomFilm")).getText();
 
         driver.findElement(By.id("randomBy" + category)).click(); // clicks certain button
@@ -57,13 +55,7 @@ public class getRandomFilmByCategoryStepsDef {
     public void display_a_random_film_title_and_description() {
 
         Assertions.assertNotEquals(Expected, Actual, "randomFilm text not changed");
-        //driver.navigate().refresh();
         driver.quit();
     }
-
-//    WIP: Instead of manually writing each category name, get a list from the front end, get each element in that list, and use the text inside that element
-//    List<WebElement> categoriesList = driver.findElements(By.id("categories"));
-//      for(int i = 0; i < categoriesList.size() ; i++){
-//        driver.findElement(By.id("randomBy" + categoriesList.get(i))).click();
 
 }

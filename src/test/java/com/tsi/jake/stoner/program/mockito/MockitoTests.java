@@ -217,46 +217,59 @@ class MockitoTests {
 
 // NOT WORKING CORRECT
 
-//    @Test
-//    void testGetFilmById(){
-//        // Create list
-//        List <Film> filmList = new ArrayList<>();
-//        Film testFilm1 = new Film (1, "Test Film", "Film Test", 100, 1);
-//        Film testFilm2 = new Film (2, "Film Test", "Test Film", 100, 1);
-//        filmList.add(testFilm1);
-//        filmList.add(testFilm2);
-//
-//        // Defines behaviour of mock repos method
-//        when(filmRepository.findById(1)).thenReturn(Optional.of(testFilm1));
-//
-//        // Sets expected and actual variable
-//        Optional<Film> Expected = Optional.of(testFilm1);
-//        Optional<Film> Actual = randomFilmSelector.getFilmById(1);
-//
-//        Assertions.assertEquals(Expected, Actual, "Get film by id, returned wrong film");
-//    }
+    @Test
+    void testGetFilmById(){
+        // Create films and adds them to a list
+        List <Film> filmList = new ArrayList<>();
+        Film testFilm1 = new Film (1, "Test Film", "Film Test", 100, 1);
+        Film testFilm2 = new Film (2, "Film Test", "Test Film", 100, 1);
+        filmList.add(testFilm1);
+        filmList.add(testFilm2);
+
+        // Defines behaviour of mock repos method
+        when(filmRepository.findById(1)).thenReturn(Optional.of(testFilm1));
+
+        // Sets expected and actual variable
+        Optional<Film> Expected = Optional.of(testFilm1);
+        Optional<Film> Actual = randomFilmSelector.getFilmById(1);
+
+        Assertions.assertEquals(Expected, Actual, "Get film by id, returned wrong film");
+    }
 
 
 
-//    @Test
-//    void testGetFilmByKeyword(){
-//        String keyword ="%Shark%";
-//        List <Film> filmList = new ArrayList<>();
-//        Film testFilm1 = new Film (1, "Chicken Run", "Birds", 100, 1);
-//        Film testFilm2 = new Film (2, "Shark Tail", "Drama about fish", 100, 1);
-//        filmList.add(testFilm1);
-//        filmList.add(testFilm2);
-//
-//
-//        when(filmRepository.findByTitleLikeOrDescriptionLike(keyword, keyword)).thenReturn(filmList);
-//
-//        List <Film> Expected = filmList;
-//        List <Film> Actual = filmRepository.findByTitleLikeOrDescriptionLike(keyword, keyword);
-//
-//        Assertions.assertEquals(Expected, Actual, "Get film by keyword, returned wrong film");
-//    }
+    @Test
+    void testGetFilmByKeyword(){
+        String keyword ="Shark";
+        List <Film> filmList = new ArrayList<>();
+        Film testFilm1 = new Film (1, "Chicken Run", "Birds", 100, 1);
+        Film testFilm2 = new Film (2, "Shark Tail", "Drama about fish", 100, 1);
+        filmList.add(testFilm1);
+        filmList.add(testFilm2);
 
 
+        when(filmRepository.findByTitleLikeOrDescriptionLike("%" + keyword + "%", "%" + keyword + "%")).thenReturn(filmList);
+
+        List <Film> Expected = filmList;
+        List <Film> Actual = randomFilmSelector.getFilmByKeyword(keyword);
+
+        Assertions.assertEquals(Expected, Actual, "Get film by keyword, returned wrong film");
+    }
+
+@Test
+    void testGetLanguageIdByName (){
+        String name = "English";
+        Language testLanguage = new Language(1, "English");
+        Language testLanguage2 = new Language(2, "French");
+
+        when(languageRepository.findByName(name)).thenReturn(testLanguage);
+
+        // Sets expected and actual variable
+        int Expected = testLanguage.getLanguageId();
+        int Actual = randomFilmSelector.getLanguageIDByName(name);
+
+         Assertions.assertEquals(Expected, Actual, "Get language id by name, returned wrong film");
+}
 
 //    @Test
 //    void testUpdateActor (){
