@@ -18,35 +18,35 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
     private final String HOME_URL= "http://localhost:3000/";
     // Creates new window for selenium to use before each test is run
-    @BeforeEach
-    public void setUp() {
-        WebDriverManager.chromedriver().setup();
-        driver = new ChromeDriver();
-    }
-
-    // Closes the window after a test is run
-    @AfterEach
-    public void tearDown() {
-        driver.quit();
-    }
-
-    // Uses parameterized tests instead of multiple tests, 1st Value is ID, 2nd is word used for URL Actual
-    @ParameterizedTest
-    @CsvSource({
-            "goToActorButton, Actor",
-            "goToCategoryButton, Category",
-            "goToKeywordButton, Keyword",
-            "goToLanguageButton, Language",
-            "goToLengthButton, Length"
-    })
-    void testNavButtons(String id, String word){
-        driver.get("http://localhost:3000/");
-
-        driver.findElement(By.id(id)).click();
-        String URL = driver.getCurrentUrl();
-        Assertions.assertEquals(URL, HOME_URL + word, "Incorrect Page");
-        driver.quit();
-    }
+//    @BeforeEach
+//    public void setUp() {
+//        WebDriverManager.chromedriver().setup();
+//        driver = new ChromeDriver();
+//    }
+//
+//    // Closes the window after a test is run
+//    @AfterEach
+//    public void tearDown() {
+//        driver.quit();
+//    }
+//
+//    // Uses parameterized tests instead of multiple tests, 1st Value is ID, 2nd is word used for URL Actual
+//    @ParameterizedTest
+//    @CsvSource({
+//            "goToActorButton, Actor",
+//            "goToCategoryButton, Category",
+//            "goToKeywordButton, Keyword",
+//            "goToLanguageButton, Language",
+//            "goToLengthButton, Length"
+//    })
+//    void testNavButtons(String id, String word){
+//        driver.get("http://localhost:3000/");
+//
+//        driver.findElement(By.id(id)).click();
+//        String URL = driver.getCurrentUrl();
+//        Assertions.assertEquals(URL, HOME_URL + word, "Incorrect Page");
+//        driver.quit();
+//    }
 //
 //    @Test
 //    public void testActorNav() {
