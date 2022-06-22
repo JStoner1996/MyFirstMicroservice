@@ -1,4 +1,4 @@
-package com.tsi.jake.stoner.program.cucumber;
+package com.tsi.jake.stoner.program.selenium;
 
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;

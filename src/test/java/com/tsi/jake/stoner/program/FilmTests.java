@@ -13,14 +13,14 @@ import org.junit.jupiter.api.Test;
     private Film testFilm = new Film(1,"Chicken Run", "Chicken's Run", 125, 1 );
 
     @Test
-     void testGetFilm_id(){
+     void testGetFilmId(){
         Expected = 1;
         Actual = testFilm.getFilmId();
         Assertions.assertEquals(Expected, Actual, "Returns incorrect Film ID");
     }
 
     @Test
-     void testSetFilm_id(){
+     void testSetFilmId(){
         Expected = 5;
         testFilm.setFilmId(Expected);
         Actual = testFilm.getFilmId();
@@ -73,17 +73,27 @@ import org.junit.jupiter.api.Test;
     }
 
     @Test
-     void testGetLanguage_id(){
+     void testGetLanguageId(){
         Expected = 1;
         Actual = testFilm.getLanguageId();
         Assertions.assertEquals(Expected, Actual, "Returns incorrect Film ID");
     }
 
     @Test
-     void testSetLanguage_id(){
+     void testSetLanguageId(){
         Expected = 2;
         testFilm.setLanguageId(Expected);
         Actual = testFilm.getLanguageId();
         Assertions.assertEquals(Expected, Actual , "Film ID set incorrectly");
     }
+
+    @Test
+    void testFilmConstructor(){
+       String testTitle = "Test Film";
+       Film testFilm = new Film(testTitle, "Film Test", 100, 1);
+
+       Assertions.assertEquals(testTitle, testFilm.getTitle());
+    }
+
+
 }

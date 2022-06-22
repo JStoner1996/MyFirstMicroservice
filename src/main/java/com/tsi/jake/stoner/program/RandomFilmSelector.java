@@ -98,27 +98,27 @@ public class RandomFilmSelector {
 
 
 	// Deletes actor with a message if actor not found
-	@DeleteMapping("/actor/delete")
-	public @ResponseBody String removeActorByID (@RequestParam int actor_id){
-
-		if (actorRepository.existsById(actor_id)){
-			actorRepository.deleteById(actor_id);
-			return ACTOR_STRING + actor_id + " deleted. ";
-		} else throw new ResourceNotFoundException(ACTOR_STRING + actor_id + DOES_NOT_EXIST);
-	}
+//	@DeleteMapping("/actor/delete")
+//	public @ResponseBody String removeActorByID (@RequestParam int actor_id){
+//
+//		if (actorRepository.existsById(actor_id)){
+//			actorRepository.deleteById(actor_id);
+//			return ACTOR_STRING + actor_id + " deleted. ";
+//		} else throw new ResourceNotFoundException(ACTOR_STRING + actor_id + DOES_NOT_EXIST);
+//	}
 
 	 //Updates actor with new names
-	@PutMapping ("/updateActor/{actor_id}")
-	public @ResponseBody String updateActor(@PathVariable int actorId, @RequestParam String firstName, @RequestParam String lastName){
-
-			if(actorRepository.existsById(actorId)){
-				Actor actor = actorRepository.findById(actorId).get();
-				actor.setFirstName(firstName);
-				actor.setLastName(lastName);
-				actorRepository.save(actor);
-				return ACTOR_STRING + actorId + " updated.";
-			} else return ACTOR_STRING + actorId + DOES_NOT_EXIST;
-	}
+//	@PutMapping ("/updateActor/{actor_id}")
+//	public @ResponseBody String updateActor(@PathVariable int actorId, @RequestParam String firstName, @RequestParam String lastName){
+//
+//			if(actorRepository.existsById(actorId)){
+//				Actor actor = actorRepository.findById(actorId).get();
+//				actor.setFirstName(firstName);
+//				actor.setLastName(lastName);
+//				actorRepository.save(actor);
+//				return ACTOR_STRING + actorId + " updated.";
+//			} else return ACTOR_STRING + actorId + DOES_NOT_EXIST;
+//	}
 
 
 	// ---------------------Films---------------------
