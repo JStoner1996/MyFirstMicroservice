@@ -36,6 +36,8 @@ class MockitoTests {
 
 
 
+
+
     @BeforeEach
     void setup(){
         actorRepository = mock(ActorRepository.class);
@@ -52,6 +54,8 @@ class MockitoTests {
                 filmActorRepository,
                 categoryRepository,
                 languageRepository);
+
+
     }
 
     // Get All Tests
@@ -270,6 +274,26 @@ class MockitoTests {
 
          Assertions.assertEquals(Expected, Actual, "Get language id by name, returned wrong film");
 }
+@Test
+void testGetActorIdByName (){
+    String name = "Bob";
+    List <Actor> actorList = new ArrayList<>();
+
+    Actor testActor = new Actor (1, "Bob", "Marley");
+    Actor testActor2 = new Actor (2,"Last", "First");
+
+    actorList.add(testActor);
+    actorList.add(testActor2);
+
+    when(actorRepository.findByFirstNameLikeOrLastNameLike("%" + name + "%", "%" + name + "%")).thenReturn(actorList);
+
+    // Sets expected and actual variable
+    int Expected = testActor.getActorId();
+    int Actual = randomFilmSelector.getActorIdByName(name).get(0).getActorId();
+
+    Assertions.assertEquals(Expected, Actual, "Get Actor id by name, returned wrong actor");
+}
+
 
 //    @Test
 //    void testUpdateActor (){

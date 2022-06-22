@@ -1,13 +1,20 @@
 package com.tsi.jake.stoner.program.selenium;
 
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.jupiter.api.*;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 
 
 public class GetRandomFilmButtonsTest {
@@ -18,49 +25,42 @@ public class GetRandomFilmButtonsTest {
 
     private final String HOME_URL= "http://localhost:3000/";
     // Creates new window for selenium to use before each test is ran
-    @Before
+    @BeforeEach
     public void setUp() {
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
     }
 
     // Closes the window after a test is run
-    @After
+    @AfterEach
     public void tearDown() {
         driver.quit();
     }
 
     //Tests that each button can be clicked
-    @Test
-    public void testCategoryButtons() {
-        driver.get("http://localhost:3000/Category");
-        driver.findElement(By.id("randomByAction")).click();
-        driver.findElement(By.id("randomByAnimation")).click();
-        driver.findElement(By.id("randomByChildren")).click();
-        driver.findElement(By.id("randomByClassics")).click();
-        driver.findElement(By.id("randomByComedy")).click();
-        driver.findElement(By.id("randomByDocumentary")).click();
-        driver.findElement(By.id("randomByDrama")).click();
-        driver.findElement(By.id("randomByFamily")).click();
-        driver.findElement(By.id("randomByForeign")).click();
-        driver.findElement(By.id("randomByGames")).click();
-        driver.findElement(By.id("randomByHorror")).click();
-        driver.findElement(By.id("randomByMusic")).click();
-        driver.findElement(By.id("randomByNew")).click();
-        driver.findElement(By.id("randomBySci-Fi")).click();
-        driver.findElement(By.id("randomBySports")).click();
-        driver.findElement(By.id("randomByTravel")).click();
-        driver.findElement(By.cssSelector(".home")).click();
-        String URL = driver.getCurrentUrl();
-        Assertions.assertEquals(URL, HOME_URL, "Incorrect Page");
 
-    }
 
-    @Test
-    public void testRandomFilmByActor () {
-        driver.get("http://localhost:3000/Actor");
 
-        driver.findElement(By.id("actorName")).sendKeys("bob");
-        driver.findElement(By.id("randomByActor")).click();
+    // Goes through each random by film that has user input, and checks the button works
+    @ParameterizedTest
+    @CsvSource({
+            "Keyword, keyword, randomByKeyword , Shark",
+            "Length, length, randomByLength, 100" ,
+            "Actor, actorName, randomByActor, Bob",
+
+    })
+     void testRandomFilmByKeyword (String URL, String id, String id2, String input) {
+        driver.get("http://localhost:3000/" + URL);
+
+        Expected = driver.findElement(By.id("randomFilm")).getText();
+
+        driver.findElement(By.id(id)).sendKeys(input);
+        driver.findElement(By.id(id2)).click();
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+        wait.until(ExpectedConditions.invisibilityOfElementWithText(By.id("randomFilm"), Expected));
+
+        Actual = driver.findElement(By.id("randomFilm")).getText();
+        Assertions.assertNotEquals(Expected, Actual, id2 + " has failed.");
+
     }
 }
