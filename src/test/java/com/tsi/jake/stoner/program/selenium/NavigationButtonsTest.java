@@ -42,7 +42,7 @@ class NavigationButtonsTest {
 
         driver.quit();
     }
-//
+
 //    @Test
 //    public void testActorNav() {
 //        driver.get("http://localhost:3000/");
