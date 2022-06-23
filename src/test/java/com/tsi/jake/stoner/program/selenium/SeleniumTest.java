@@ -40,7 +40,8 @@ public class SeleniumTest {
         driver.findElement(By.id(id)).sendKeys(input);
         driver.findElement(By.id(id2)).click();
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
-        wait.until(ExpectedConditions.invisibilityOfElementWithText(By.id("randomFilm"), Expected));
+
+
 
         Actual = driver.findElement(By.id("randomFilm")).getText();
         Assertions.assertNotEquals(Expected, Actual, id2 + " has failed.");

@@ -294,6 +294,21 @@ void testGetActorIdByName (){
     Assertions.assertEquals(Expected, Actual, "Get Actor id by name, returned wrong actor");
 }
 
+//@Test
+//    void testRandomActorByName(){
+//
+//    List <Actor> actorList = new ArrayList<>();
+//    Actor testActor = new Actor (1, "Bob", "Marley");
+//    Actor testActor2 = new Actor (1, "Smith", "Rowe");
+//    actorList.add(testActor);
+//    actorList.add(testActor2);
+//
+//    when(randomFilmSelector.getRandomActorId("Bob")).thenReturn(actorList);
+//
+//}
+
+
+
 
 //    @Test
 //    void testUpdateActor (){

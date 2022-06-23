@@ -3,6 +3,8 @@ package com.tsi.jake.stoner.program;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 class ActorTests {
     private int Expected;
     private int Actual;
@@ -74,4 +76,11 @@ class ActorTests {
         Assertions.assertEquals(0, testEmptyActor.getActorId(), "Empty actor constructor not working");
     }
 
+
+//    @Test
+//    void testGetActorIdByName(){
+//        String testName = "Bette";
+//        List <Actor> testList = randomFilmSelector.getActorIdByName(testName);
+//        Assertions.assertEquals(testName, testList.get(0).getFirstName());
+//    }
 }
