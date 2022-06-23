@@ -24,24 +24,8 @@ public class GetRandomFilmButtonsTest {
     String Actual;
 
     private final String HOME_URL= "http://localhost:3000/";
-    // Creates new window for selenium to use before each test is ran
-    @BeforeEach
-    public void setUp() {
-        WebDriverManager.chromedriver().setup();
-        driver = new ChromeDriver();
-    }
 
-    // Closes the window after a test is run
-    @AfterEach
-    public void tearDown() {
-        driver.quit();
-    }
-
-    //Tests that each button can be clicked
-
-
-
-    // Goes through each random by film that has user input, and checks the button works
+    // Goes through each random by film that has user input, inputs something,  and checks the button works
     @ParameterizedTest
     @CsvSource({
             "Keyword, keyword, randomByKeyword , Shark",
@@ -50,6 +34,9 @@ public class GetRandomFilmButtonsTest {
 
     })
      void testRandomFilmByKeyword (String URL, String id, String id2, String input) {
+        WebDriverManager.chromedriver().setup();
+        driver = new ChromeDriver();
+
         driver.get("http://localhost:3000/" + URL);
 
         Expected = driver.findElement(By.id("randomFilm")).getText();
@@ -61,6 +48,7 @@ public class GetRandomFilmButtonsTest {
 
         Actual = driver.findElement(By.id("randomFilm")).getText();
         Assertions.assertNotEquals(Expected, Actual, id2 + " has failed.");
+        driver.quit();
 
     }
 }
