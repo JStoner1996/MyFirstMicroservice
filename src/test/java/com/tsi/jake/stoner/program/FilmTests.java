@@ -95,5 +95,10 @@ import org.junit.jupiter.api.Test;
        Assertions.assertEquals(testTitle, testFilm.getTitle());
     }
 
+    @Test
+    void testEmptyFilm(){
+       Film testEmptyFilm= new Film();
 
+       Assertions.assertEquals(0, testEmptyFilm.getFilmId(), "Empty category constructor not working");
+    }
 }

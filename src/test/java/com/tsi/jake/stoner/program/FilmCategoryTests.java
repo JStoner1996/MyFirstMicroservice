@@ -38,4 +38,11 @@ import org.junit.jupiter.api.Test;
         Actual = testFilmCategory.getCategoryId();
         Assertions.assertEquals(Expected, Actual , "Category ID set incorrectly");
     }
+
+    @Test
+    void testEmptyFilmCategory(){
+       FilmCategory testEmptyFilmCategory = new FilmCategory();
+
+       Assertions.assertEquals(0, testEmptyFilmCategory.getFilmId(), "Empty category constructor not working");
+    }
 }

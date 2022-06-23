@@ -38,4 +38,11 @@ class FilmActorTests {
         Actual = testFilmActor.getActorId();
         Assertions.assertEquals(Expected, Actual , "Category ID set incorrectly");
     }
+
+    @Test
+    void testEmptyFilmActor(){
+        FilmActor testEmptyFilmActor = new FilmActor();
+
+        Assertions.assertEquals(0, testEmptyFilmActor.getActorId(), "Empty category constructor not working");
+    }
 }

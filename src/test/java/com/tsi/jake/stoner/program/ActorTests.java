@@ -59,5 +59,19 @@ class ActorTests {
         Assertions.assertEquals(ExpectedS, ActualS, "Returns incorrect Last Name");
     }
 
+    @Test
+    void testActor (){
+        String firstName = "Test";
+        Actor testActor = new Actor(firstName, "Actor");
+
+        Assertions.assertEquals(firstName, testActor.getFirstName(), "Actor constructor incorrect");
+    }
+
+    @Test
+    void testEmptyActor(){
+        Actor testEmptyActor = new Actor();
+
+        Assertions.assertEquals(0, testEmptyActor.getActorId(), "Empty actor constructor not working");
+    }
 
 }

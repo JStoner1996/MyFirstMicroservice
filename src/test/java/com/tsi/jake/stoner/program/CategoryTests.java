@@ -42,4 +42,11 @@ import org.junit.jupiter.api.Test;
         ActualS = testCategory.getName();
         Assertions.assertEquals(ExpectedS, ActualS, "Name set incorrectly");
     }
+
+    @Test
+    void testEmptyCategory(){
+       Category testEmptyCategory = new Category();
+
+       Assertions.assertEquals(0, testEmptyCategory.getCategoryId(), "Empty category constructor not working");
+    }
 }

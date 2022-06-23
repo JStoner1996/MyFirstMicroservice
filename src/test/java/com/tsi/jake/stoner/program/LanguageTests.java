@@ -41,4 +41,11 @@ class LanguageTests {
         ActualS = testLanguage.getName();
         Assertions.assertEquals(ExpectedS, ActualS , "Name set incorrectly");
     }
+
+    @Test
+    void testEmptyLanguage(){
+        Language testEmptyLanguage = new Language();
+
+        Assertions.assertEquals(0, testEmptyLanguage.getLanguageId(), "Empty category constructor not working");
+    }
 }

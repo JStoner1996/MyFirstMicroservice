@@ -1,9 +1,9 @@
-Feature: Display a film buttons
+Feature: Display a film using buttons
   Scenario Outline: Verifying each category button works
     Given The application is running
     When the "<page>" page is open
     And The "<button>" button is clicked
-    Then display a random film title and description
+    Then display a film title and description
 
     Examples:
       | page      | button      |
@@ -29,25 +29,8 @@ Feature: Display a film buttons
       | language  | Italian     |
       | language  | Japanese    |
       | language  | Mandarin    |
-
-#
-#  Scenario Outline: Verifying each language button works
-#    Given The application is running
-#    When the language page is open
-#    And The "<language>" button is clicked
-#    Then display a random film title and description
-#
-#    Examples:
-#      | language  |
-#      | English   |
-#      | French    |
-#      | German    |
-#      | Italian   |
-#      | Japanese  |
-#      | Mandarin  |
-#
-#Feature: Display a random film by Actor
-#  Scenario: Verifying each button works
-#    Given The application is running
-#    When the category page is open
-#    Then A button is clicked to display a random film title and description
+  # Will open the application,
+  # will navigate to category / language page
+  # will click all buttons that return a film
+  # It will then check that the text container for the film has changed
+  # If the text changes, it means the buttons work
