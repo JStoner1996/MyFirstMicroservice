@@ -34,4 +34,4 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           # -Dtest=!getRandomFilmByCategoryStepsDef -Dtest=!NavigationButtonsTest
-        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar  -Dtest=!com.tsi.jake.stoner.program.selenium* -Dsonar.projectKey=JStoner1996_MyFirstMicroservice
+        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar mvn -Dtest=!com.tsi.jake.stoner.program.selenium* -Dsonar.projectKey=JStoner1996_MyFirstMicroservice
