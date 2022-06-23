@@ -52,7 +52,7 @@
       <groupId>org.springframework.boot</groupId>  
       <artifactId>spring-boot-starter-test</artifactId>  
       <scope>test</scope> 
-    </dependency>  
+    </dependency>
     <dependency> 
       <groupId>jakarta.persistence</groupId>  
       <artifactId>jakarta.persistence-api</artifactId>  
@@ -82,7 +82,17 @@
     </dependency> 
   </dependencies>  
   <build> 
-    <plugins> 
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <configuration>
+          <excludes>
+            <exclude>NavigationButtonsTest.test</exclude>
+            <exclude>GetRandomFilmButtonsTest.test</exclude>
+          </excludes>
+        </configuration>
+      </plugin>
       <plugin> 
         <groupId>org.springframework.boot</groupId>  
         <artifactId>spring-boot-maven-plugin</artifactId>  

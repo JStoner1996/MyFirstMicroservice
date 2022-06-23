@@ -1,9 +1,5 @@
 package com.tsi.jake.stoner.program.selenium;
 
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -17,7 +13,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 
 
-public class GetRandomFilmButtonsTest {
+public class SeleniumTest {
 
     WebDriver driver;
     String Expected;
@@ -50,5 +46,27 @@ public class GetRandomFilmButtonsTest {
         Assertions.assertNotEquals(Expected, Actual, id2 + " has failed.");
         driver.quit();
 
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+            "goToActorButton, Actor",
+            "goToCategoryButton, Category",
+            "goToKeywordButton, Keyword",
+            "goToLanguageButton, Language",
+            "goToLengthButton, Length"
+    })
+    void testNavButtons(String id, String word){
+
+        WebDriverManager.chromedriver().setup();
+        driver = new ChromeDriver();
+
+        driver.get("http://localhost:3000/");
+
+        driver.findElement(By.id(id)).click();
+        String URL = driver.getCurrentUrl();
+        Assertions.assertEquals(URL, HOME_URL + word, "Incorrect Page");
+
+        driver.quit();
     }
 }
