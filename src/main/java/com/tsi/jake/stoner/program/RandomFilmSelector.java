@@ -102,7 +102,7 @@ public class RandomFilmSelector {
 //		if (actorRepository.existsById(actor_id)){
 //			actorRepository.deleteById(actor_id);
 //			return ACTOR_STRING + actor_id + " deleted. ";
-//		} else throw new ResourceNotFoundException(ACTOR_STRING + actor_id + DOES_NOT_EXIST);
+//		} else return ACTOR_STRING + actor_id + DOES_NOT_EXIST;
 //	}
 
 	 //Updates actor with new names
@@ -149,7 +149,11 @@ public class RandomFilmSelector {
 
 	// Random by Keyword
 
+	/*-------------------------------------------------------------------------------------------------------------------------
+	// Uses JPA Finder Methods.Data JPA creates SQL queries based on method.
+	// Finder Methods HAVE to start with "findBy", followed by the field name
 	// eg: localhost8080/filmRandomizer/film/randomByKeyword/shark
+	 -------------------------------------------------------------------------------------------------------------------------*/
 	@GetMapping("/film/randomByKeyword/{keyword}")
 	public Film getRandomFilmByKeyword(@PathVariable String keyword){
 
@@ -160,7 +164,7 @@ public class RandomFilmSelector {
 
 		// Chooses a random element from this list and returns it
 		return filmsByWord.get(random.nextInt(max));
-//
+
 	}
 
 	// Returns a list of films that have the keyword
@@ -169,6 +173,7 @@ public class RandomFilmSelector {
 		keyword = "%" + keyword + "%";
 		return filmRepository.findByTitleLikeOrDescriptionLike(keyword,  keyword);
 	}
+	/*-------------------------------------------------------------------------------------------------------------------------*/
 
 	// Returns a list of actor id's and their film id's
 	//@GetMapping("/film/actors")
@@ -183,7 +188,6 @@ public class RandomFilmSelector {
 	public ResponseEntity <List<FilmActor>> getFilmByActor(@PathVariable int actorId){
 		return new ResponseEntity<>(filmActorRepository.findByActorId(actorId),HttpStatus.OK);
 	}
-
 
 	// Random By Category
 	@GetMapping ("/film/randomByCategory/{name}")
