@@ -13,7 +13,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 
 
-public class SeleniumTest {
+class SeleniumTest {
 
     WebDriver driver;
     String Expected;
@@ -26,10 +26,9 @@ public class SeleniumTest {
     @CsvSource({
             "Keyword, keyword, randomByKeyword , Shark",
             "Length, length, randomByLength, 100" ,
-            "Actor, actorName, randomByActor, Bob",
-
+            "Actor, actorName, randomByActor, Bob"
     })
-     void testRandomFilmByKeyword (String URL, String id, String id2, String input) {
+     void testRandomFilmByParameter (String URL, String id, String id2, String input) {
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
 
@@ -40,8 +39,7 @@ public class SeleniumTest {
         driver.findElement(By.id(id)).sendKeys(input);
         driver.findElement(By.id(id2)).click();
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
-
-
+        wait.until(ExpectedConditions.invisibilityOfElementWithText(By.id("randomFilm"), Expected));
 
         Actual = driver.findElement(By.id("randomFilm")).getText();
         Assertions.assertNotEquals(Expected, Actual, id2 + " has failed.");

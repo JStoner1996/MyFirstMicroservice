@@ -15,7 +15,7 @@ import java.util.Random;
 
 @SpringBootApplication
 @RestController // Handles GET, POST, DELETE, PUT requests
-@RequestMapping("/filmRandomizer") //base url,  so url would be: localhost:8080/home/{Mapping}
+@RequestMapping("/filmRandomizer") //base url,  so url would be: localhost:8080/{Mapping}
 @CrossOrigin
 
 
@@ -148,6 +148,8 @@ public class RandomFilmSelector {
 	}
 
 	// Random by Keyword
+
+	// eg: localhost8080/filmRandomizer/film/randomByKeyword/shark
 	@GetMapping("/film/randomByKeyword/{keyword}")
 	public Film getRandomFilmByKeyword(@PathVariable String keyword){
 
@@ -163,7 +165,7 @@ public class RandomFilmSelector {
 
 	// Returns a list of films that have the keyword
 	public List<Film> getFilmByKeyword(String keyword){
-		// Used for the SQL query:
+		// Used for the SQL query: LIKE
 		keyword = "%" + keyword + "%";
 		return filmRepository.findByTitleLikeOrDescriptionLike(keyword,  keyword);
 	}

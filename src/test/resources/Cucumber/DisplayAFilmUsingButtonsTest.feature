@@ -29,6 +29,7 @@ Feature: Display a film using buttons
       | language  | Italian     |
       | language  | Japanese    |
       | language  | Mandarin    |
+
   # Will open the application,
   # will navigate to category / language page
   # will click all buttons that return a film
